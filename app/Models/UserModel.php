@@ -1,0 +1,51 @@
+<?php namespace App\Models;
+
+use CodeIgniter\Model;
+
+class UserModel extends Model
+{
+    protected $table = "user";
+
+    public function getUser($nis = false)
+    {
+        if($nis === false){
+            return $this->table('user')
+                        ->orderBy('nama','ASC')
+                        ->get()
+                        ->getResultArray();
+        } else {
+            return $this->table('user')
+                        ->where('nis', $nis)
+                        ->get()
+                        ->getRowArray();
+        }
+    }
+    function Login(){
+        return $this->table('user')
+                    ->select('nis','password')
+                    ->get()
+                    ->getRowArray();
+  }
+
+    function TambahUser($data){
+        $query = $this->protect(false)
+                      ->table('user')
+                      ->insert($data);
+        return $query;
+    }
+    function HapusUser($nis){
+        $query = $this->table('user')
+                      ->where('nis',$nis)
+                      ->delete();
+        return $query;
+    }
+    function UbahUser($data,$nis){
+        $query = $this->protect(false)
+                      ->table('user')
+                      ->set($data)
+                      ->where('nis',$nis)
+                      ->update();
+    }
+
+}
+?>

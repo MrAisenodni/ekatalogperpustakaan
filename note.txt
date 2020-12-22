@@ -1,5 +1,0 @@
-1. Bikin halaman register cuman di crash buat admin
-2. Bikin 2 form login (1 admin 1 user)
-3. Semuanya link langsung ganti password
-
-4. Lokasi itu ternyata lokasi posisi RAK
