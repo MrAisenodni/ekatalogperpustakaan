@@ -10,7 +10,7 @@
     <meta name="keywords" content="Perpustakaan">
 
     <!-- Title Page-->
-    <title>Admin Perpustakaan | Dashboard</title>
+    <title>Admin Perpustakaan | <?= $title; ?></title>
 
     <!-- Fontfaces CSS-->
     <link href="admin/css/font-face.css" rel="stylesheet" media="all">
@@ -57,15 +57,15 @@
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li>
-                            <a href="<?= base_url('/adm'); ?>">
+                            <a href="<?= base_url('adm'); ?>">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="<?= base_url('/akatalog'); ?>">
+                            <a href="<?= base_url('adm_katalog'); ?>">
                                 <i class="fas fa-chart-bar"></i>Katalog</a>
                         </li>
                         <li>
-                            <a href="<?= base_url('/auser'); ?>">
+                            <a href="<?= base_url('adm_user'); ?>">
                                 <i class="fas fa-table"></i>User</a>
                         </li>
                     </ul>
@@ -77,25 +77,25 @@
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
-                <a href="<?= base_url('/adm'); ?>">
+                <a href="<?= base_url('adm'); ?>">
                     <img src="admin/images/logo.png" alt="Cool Admin" style="width: 70px; height: 70px;" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
-                            <a href="<?= base_url('/adm'); ?>">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('/akatalog'); ?>">
-                                <i class="fas fa-chart-bar"></i>Katalog</a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('/auser'); ?>">
-                                <i class="fas fa-table"></i>User</a>
-                        </li>
+                      <li>
+                          <a href="<?= base_url('adm'); ?>">
+                              <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                      </li>
+                      <li>
+                          <a href="<?= base_url('adm_katalog'); ?>">
+                              <i class="fas fa-chart-bar"></i>Katalog</a>
+                      </li>
+                      <li>
+                          <a href="<?= base_url('adm_user'); ?>">
+                              <i class="fas fa-table"></i>User</a>
+                      </li>
                     </ul>
                 </nav>
             </div>
@@ -115,34 +115,24 @@
                             <div class="header-button">
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
-                                        <div class="image">
-                                            <img src="admin/images/icon/avatar-01.jpg" alt="John Doe" />
-                                        </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#">john doe</a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
-                                                <div class="image">
-                                                    <a href="#">
-                                                        <img src="admin/images/icon/avatar-01.jpg" alt="John Doe" />
-                                                    </a>
-                                                </div>
-                                                <div class="content">
-                                                    <h5 class="name">
-                                                        <a href="#">john doe</a>
-                                                    </h5>
-                                                    <span class="email">johndoe@example.com</span>
-                                                </div>
+                                                <h5 class="name">
+                                                    john doe
+                                                </h5>
+                                                <span class="email">johndoe@example.com</span>
                                             </div>
-                                            <div class="account-dropdown__body">
+                                            <!-- <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
                                                     <a href="#">
                                                         <i class="zmdi zmdi-account"></i>Account</a>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="account-dropdown__footer">
-                                                <a href="login.php">
+                                                <a href="<?= base_url('logout')?>">
                                                     <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>

@@ -1,9 +1,12 @@
-<?php require_once("src/header-login-admin.php"); ?>
+<?= $this->include('admin/layout/header-login-admin'); ?>
     <div class="login-form">
-        <form action="" method="post">
+        <form action="<?= base_url('login/proses');?>" method="post">
+          <?php if(session()->getFlashdata('msg')):?>
+                    <div class="alert alert-danger"><?= session()->getFlashdata('msg') ?></div>
+                <?php endif;?>
             <div class="form-group">
                 <label>Username / NIS</label>
-                <input class="au-input au-input--full" type="email" name="email" placeholder="Masukan Username / NIS">
+                <input class="au-input au-input--full" type="text" name="nis" placeholder="Masukan Username / NIS">
             </div>
             <div class="form-group">
                 <label>Kata Sandi</label>
@@ -17,4 +20,4 @@
             <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit"><b>Masuk</b></button>
         </form>
     </div>
-<?php require_once("src/footer-login-admin.php"); ?>
+<?= $this->include('layout/footer-login'); ?>

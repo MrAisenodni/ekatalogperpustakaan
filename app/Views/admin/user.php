@@ -34,14 +34,12 @@
                             <span class="block-email"><?= $data['nama']; ?></span>
                         </td>
                         <td><?php if($data['jenkel']==='L'){echo 'Laki-Laki';}else{echo 'Perempuan';} ?></td>
-                        <td><?= $data['tgl_lahir']; ?></td>
-                        <td>
-                            <span class="status--process"><?= $data['telp']; ?></span>
-                        </td>
+                        <td><?= $data['telp']; ?></td>
                         <td>
                             <span class="<?php if($data['akses']==='usr'){echo 'role user';}else{echo 'role admin';} ?>">
                               <?php if($data['akses']==='usr'){echo 'User';}else{echo 'Pustakawan';} ?></span>
                         </td>
+                        <td><?= $data['tgl_daftar']; ?></td>
                         <td>
                             <div class="table-data-feature">
                                 <a href="edit-user.php" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
@@ -104,42 +102,42 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="<?= base_url('/adm/tambahuser')?>" method="post">
             <div class="form-group">
                 <label for="exampleInputEmail1">NIS</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" name="nis" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Nama</label>
-                <input type="text" class="form-control" id="exampleInputPassword1">
+                <input type="text" name="nama" class="form-control" id="exampleInputPassword1">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Jenis Kelamin</label><br>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio1" value="option1">
+                    <input class="form-check-input" type="radio" name="jk" id="inlineRadio1" value="L">
                     <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio2" value="option2">
+                    <input class="form-check-input" type="radio" name="jk" id="inlineRadio2" value="P">
                     <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                 </div>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Tanggal Lahir</label>
-                <input type="date" class="form-control" id="exampleInputPassword1">
+                <input type="date" name="tgllahir"class="form-control" id="exampleInputPassword1">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Nomor Telepon</label>
-                <input type="text" class="form-control" id="exampleInputPassword1">
+                <input type="text" name="telp" class="form-control" id="exampleInputPassword1">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Akses</label><br>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="akses" id="inlineRadio1" value="option1">
+                    <input class="form-check-input" type="radio" name="akses" id="inlineRadio1" value="pus">
                     <label class="form-check-label" for="inlineRadio1">Admin</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="akses" id="inlineRadio2" value="option2">
+                    <input class="form-check-input" type="radio" name="akses" id="inlineRadio2" value="usr">
                     <label class="form-check-label" for="inlineRadio2">User</label>
                 </div>
             </div>
@@ -148,7 +146,7 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
             <i class="fas fa-times"></i> Close
         </button>
-        <button type="button" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary">
             <i class="fas fa-check-circle"></i> Simpan
         </button>
       </div>

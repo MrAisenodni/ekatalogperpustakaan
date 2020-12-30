@@ -7,6 +7,8 @@ use App\Models\UserModel;
 class Adm extends Controller{
 
 // ROOT
+	protected $pustaka;
+	protected $user;
 	public function __construct() {
 			$this->pustaka = new PustakaModel();
 			$this->user = new UserModel();
@@ -14,13 +16,24 @@ class Adm extends Controller{
 
 	public function index()
 	{
-		return view('admin/index');
+		$pus = $this->pustaka->countAllResults();
+		$usr = $this->user->countAllResults();
+		$data = [
+			'title' => 'Dashboard',
+			'numpus' => $pus,
+			'numusr' => $usr,
+		];
+		return view('admin/index', $data);
 	}
 
 // KATALOG/BUKU/PUSTAKA
 	public function katalog()
 	{
-		$data['pustaka'] = $this->pustaka->getPustaka();
+		$all = $this->pustaka->getPustaka();
+		$data = [
+			'title' => 'Pustaka',
+			'pustaka' => $all,
+		];
 		return view('admin/katalog', $data);
 	}
 
@@ -72,9 +85,9 @@ class Adm extends Controller{
 
       // Jika simpan berhasil, maka ...
       if(!$simpan){
-        return redirect()->to(base_url('akatalog'));
+        return redirect()->to(base_url('adm_katalog'));
       }else{
-        return redirect()->to(base_url('akatalog'));
+        return redirect()->to(base_url('adm_katalog'));
       }
     }
 
@@ -109,9 +122,9 @@ class Adm extends Controller{
         // Jika berhasil melakukan ubah
         if(!$ubah)
         {
-          return redirect()->to(base_url('akatalog'));
+          return redirect()->to(base_url('adm_katalog'));
         }else{
-          return redirect()->to(base_url('akatalog'));
+          return redirect()->to(base_url('adm_katalog'));
         }
       }else{
         $data['pustaka'] = $this->pustaka->getPustaka($kd);
@@ -125,16 +138,59 @@ class Adm extends Controller{
     // Jika berhasil melakukan hapus
     if($hapus)
     {
-        return redirect()->to(base_url('akatalog'));
+        return redirect()->to(base_url('adm_katalog'));
     }
     }
 
 // USER
 	public function user()
 	{
-		$data['user'] = $this->user->getUser();
+		$all = $this->user->getUser();
+		$data = [
+			'title' => 'User',
+			'user' => $all,
+		];
 		return view('admin/user', $data);
 	}
+
+	public function tambahuser()
+    {
+      date_default_timezone_set('Asia/Jakarta');
+      // Mengambil value dari form dengan method POST
+      $nis = $this->request->getPost('nis');
+      $nama = $this->request->getPost('nama');
+      $jenkel = $this->request->getPost('jk');
+      $lahir = $this->request->getPost('tgllahir');
+      $telp = $this->request->getPost('telp');
+      $akses = $this->request->getPost('akses');
+      $daftar = date('Y-m-d G:i:s');
+      $pass = MD5('sementara');
+
+      // Membuat array collection yang disiapkan untuk insert ke table
+      $data = [
+        'nis' => $nis,
+        'nama' => $nama,
+        'jenkel' => $jenkel,
+        'tgl_lahir' => $lahir,
+        'telp' => $telp,
+        'password' => $pass,
+        'akses' => $akses,
+        'tgl_daftar' => $daftar
+      ];
+
+      /*
+      Membuat variabel simpan yang isinya merupakan memanggil function
+      insert_product dan membawa parameter data
+      */
+      $simpan = $this->user->TambahUser($data);
+
+      // Jika simpan berhasil, maka ...
+      if(!$simpan){
+        return redirect()->to(base_url('adm_user'));
+      }else{
+        return redirect()->to(base_url('adm_user'));
+      }
+    }
 
 	//--------------------------------------------------------------------
 

@@ -8,13 +8,7 @@ use App\Models\PustakaModel;
 class Pustaka extends Controller
 {
   public function __construct() {
-
-      // Mendeklarasikan class ProductModel menggunakan $this->product
       $this->pustaka = new PustakaModel();
-      /* Catatan:
-      Apa yang ada di dalam function construct ini nantinya bisa digunakan
-      pada function di dalam class Product
-      */
   }
   public function index()
     {

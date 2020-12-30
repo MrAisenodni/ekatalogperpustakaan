@@ -6,18 +6,21 @@ class PustakaModel extends Model
 {
     protected $table = "pustaka";
 
-    public function getPustaka($kd = false)
+    public function getPustaka($term = false)
     {
-        if($kd === false){
+        if($term === false){
             return $this->table('pustaka')
                         ->orderBy('kd_buku','ASC')
                         ->get()
                         ->getResultArray();
         } else {
             return $this->table('pustaka')
-                        ->where('kd_buku', $kd)
+                        ->like('judul', $term)
+                        ->orLike('pengarang', $term)
+                        ->orLike('penerbit', $term)
+                        ->orLike('tahun', $term)
                         ->get()
-                        ->getRowArray();
+                        ->getResultArray();
         }
     }
     function KodeBuku(){
@@ -47,6 +50,7 @@ class PustakaModel extends Model
                       ->set($data)
                       ->where('kd_buku',$kd)
                       ->update();
+        return $query;
     }
 
 }

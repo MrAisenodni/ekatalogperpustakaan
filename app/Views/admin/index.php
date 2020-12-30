@@ -16,7 +16,7 @@
                         <i class="zmdi zmdi-account-o"></i>
                     </div>
                     <div class="text">
-                        <h2>10368</h2>
+                        <h2><?= $numusr; ?></h2>
                         <span>User Terdaftar</span>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         <i class="fas fa-book"></i>
                     </div>
                     <div class="text">
-                        <h2>388</h2>
+                        <h2><?= $numpus; ?></h2>
                         <span>Katalog</span>
                     </div>
                 </div>
