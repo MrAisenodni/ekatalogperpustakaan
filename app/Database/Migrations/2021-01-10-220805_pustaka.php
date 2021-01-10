@@ -39,10 +39,9 @@ class Pustaka extends Migration
 																'constraint'     => '5',
 																'null'					 => true,
                         ],
-												'lokasi' => [
+												'kd_rak' => [
 																'type'           => 'VARCHAR',
 																'constraint'     => '5',
-																'null'					 => true,
                         ],
                 ]);
                 $this->forge->addKey('kd_buku', true);

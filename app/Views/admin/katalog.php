@@ -104,7 +104,13 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Lokasi</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="lokasi">
+                <select name="rak" class="form-control">
+                  <option>--Pilih Rak--</option>
+                  <?php
+                  foreach($rak as $key => $data1){?>
+                    <option value="<?= $data1['kd_rak']; ?>"><?= $data1['nama']; ?></option>
+                  <?php } ?>
+                </select>
             </div>
       </div>
       <div class="modal-footer">

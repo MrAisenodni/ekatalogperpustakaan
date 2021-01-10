@@ -3,15 +3,18 @@
 use CodeIgniter\Controller;
 use App\Models\PustakaModel;
 use App\Models\UserModel;
+use App\Models\RakModel;
 
 class Adm extends Controller{
 
 // ROOT
 	protected $pustaka;
 	protected $user;
+	protected $rak;
 	public function __construct() {
 			$this->pustaka = new PustakaModel();
 			$this->user = new UserModel();
+			$this->rak = new RakModel();
 	}
 
 	public function index()
@@ -30,9 +33,11 @@ class Adm extends Controller{
 	public function katalog()
 	{
 		$all = $this->pustaka->getPustaka();
+		$drak = $this->rak->getRak();
 		$data = [
 			'title' => 'Pustaka',
 			'pustaka' => $all,
+			'rak' => $drak,
 		];
 		return view('admin/katalog', $data);
 	}
