@@ -47,7 +47,7 @@
             <div class="card bg-light mb-3">
                 <div class="card-header" style="color: black;">Denah Perpustakaan</div>
                 <div class="card-body">
-                    <img src="img/bg-masthead1.jpg" alt="" style="width: 500px; height: 300px;">
+                    <img src="user/img/denah.jpg" alt="denah" style="width: 500px; height: 750px;"> -->
                 </div>
             </div>
         </div>

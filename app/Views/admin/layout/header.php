@@ -65,6 +65,10 @@
                                 <i class="fas fa-chart-bar"></i>Katalog</a>
                         </li>
                         <li>
+                            <a href="<?= base_url('adm_rak'); ?>">
+                                <i class="fas fa-chart-donut"></i>Rak</a>
+                        </li>
+                        <li>
                             <a href="<?= base_url('adm_user'); ?>">
                                 <i class="fas fa-table"></i>User</a>
                         </li>
@@ -91,6 +95,10 @@
                       <li>
                           <a href="<?= base_url('adm_katalog'); ?>">
                               <i class="fas fa-chart-bar"></i>Katalog</a>
+                      </li>
+                      <li>
+                          <a href="<?= base_url('adm_rak'); ?>">
+                              <i class="fas fa-book"></i>Rak</a>
                       </li>
                       <li>
                           <a href="<?= base_url('adm_user'); ?>">

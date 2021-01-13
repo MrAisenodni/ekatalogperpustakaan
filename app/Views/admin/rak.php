@@ -3,11 +3,11 @@
 <div class="row">
     <div class="col-md-12">
         <!-- DATA TABLE -->
-        <h3 class="title-5 m-b-35">KATALOG</h3>
+        <h3 class="title-5 m-b-35">RAK</h3>
         <div class="table-data__tool">
             <div class="table-data__tool-right">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fas fa-plus-circle"></i> Tambah Buku</button>
+                    <i class="fas fa-plus-circle"></i> Tambah Rak</button>
             </div>
         </div>
         <div class="table-responsive table-responsive-data2">
@@ -15,35 +15,31 @@
                 <thead>
                     <tr>
                       <th>No</th>
-                      <th>Judul Buku</th>
-                      <th>Pengarang</th>
-                      <th>Penerbit</th>
-                      <th>Tahun</th>
-                      <th>Lokasi</th>
+                      <th>Kode Rak</th>
+                      <th>Nama</th>
+                      <th>Jenis</th>
                       <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                   <?php
                   $no = 1;
-                  foreach($pustaka as $key => $data){?>
+                  foreach($rak as $key => $data){?>
                     <tr class="tr-shadow">
                         <td><?= $no; ?></td>
                         <td>
-                            <?= $data['judul']; ?>
+                            <?= $data['kd_rak']; ?>
                         </td>
-                        <td class="desc"><?= $data['pengarang']; ?></td>
+                        <td class="desc"><?= $data['nama']; ?></td>
                         <td>
-                            <span class="status--process"><?= $data['penerbit']; ?></span>
+                            <span class="status--process"><?= $data['jenis']; ?></span>
                         </td>
-                        <td><?= $data['tahun']; ?></td>
-                        <td><?= $data['kd_rak']; ?></td>
                         <td>
                             <div class="table-data-feature">
-                                <a href="<?= base_url('adm/ubahbuku/form/'.$data['kd_buku']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <a href="<?= base_url('adm/ubahbuku/form/'.$data['kd_rak']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="zmdi zmdi-edit"></i>
                                 </a>
-                                <a href="<?= base_url('adm/hapusbuku/'.$data['kd_buku']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                <a href="<?= base_url('adm/hapusbuku/'.$data['kd_rak']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
                                     <i class="zmdi zmdi-delete"></i>
                                 </a>
                                 <a href="detail-katalog.php" class="item" data-toggle="tooltip" data-placement="top" title="More">
@@ -73,44 +69,22 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?=base_url('adm/tambahbuku'); ?>" method="post">
+        <form action="<?=base_url('adm/tambahrak'); ?>" method="post" enctype="multipart/form-data">
             <!-- <div class="form-group">
                 <label for="exampleInputEmail1">Kode Buku</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div> -->
             <div class="form-group">
-                <label for="exampleInputPassword1">Judul</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="judul">
+                <label for="exampleInputPassword1">Nama</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" name="nama">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Pengarang</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="pengarang">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Editor</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="editor">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Penerbit</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="penerbit">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Tahun</label>
-                <input type="year" class="form-control" id="exampleInputPassword1" name="tahun">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Jumlah Halaman</label>
-                <input type="number" class="form-control" id="exampleInputPassword1" name="halaman">
+                <label for="exampleInputPassword1">Jenis</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" name="jenis">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Lokasi</label>
-                <select name="rak" class="form-control">
-                  <option>--Pilih Rak--</option>
-                  <?php
-                  foreach($rak as $key => $data1){?>
-                    <option value="<?= $data1['kd_rak']; ?>"><?= $data1['nama']; ?></option>
-                  <?php } ?>
-                </select>
+                <input type="file" class="form-control" id="exampleInputPassword1" name="gmb">
             </div>
       </div>
       <div class="modal-footer">

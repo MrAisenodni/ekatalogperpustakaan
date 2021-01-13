@@ -8,8 +8,9 @@ class Rak extends Migration
 	{
 		$this->forge->addField([
                         'kd_rak'          => [
-                                'type'           => 'VARCHAR',
+                                'type'           => 'INT',
                                 'constraint'     => 5,
+																'auto_increment' => true,
                         ],
                         'nama'       => [
                                 'type'           => 'VARCHAR',

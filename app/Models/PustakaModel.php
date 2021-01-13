@@ -23,6 +23,24 @@ class PustakaModel extends Model
                         ->getResultArray();
         }
     }
+    public function getPustakaJoin($term = false)
+    {
+        if($term === false){
+            return $this->table('pustaka')
+                        // ->join('rak')
+                        ->orderBy('kd_buku','ASC')
+                        ->get()
+                        ->getResultArray();
+        } else {
+            return $this->table('pustaka')
+                        ->like('judul', $term)
+                        ->orLike('pengarang', $term)
+                        ->orLike('penerbit', $term)
+                        ->orLike('tahun', $term)
+                        ->get()
+                        ->getResultArray();
+        }
+    }
     function KodeBuku(){
         return $this->table('pustaka')
                     ->select('kd_buku')

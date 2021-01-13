@@ -40,6 +40,7 @@ $routes->get('logout', 'Auth::logout');
 
 $routes->get('adm', 'Adm::index');
 $routes->get('adm_katalog', 'Adm::katalog');
+$routes->get('adm_rak', 'Adm::rak');
 $routes->get('adm_user', 'Adm::user');
 /**
  * --------------------------------------------------------------------
