@@ -35,7 +35,7 @@
                                 <td><?= $data['penerbit']; ?></td>
                                 <td><?= $data['tahun']; ?></td>
                                 <td><?= $data['halaman']; ?></td>
-                                <td><?= $data['lokasi']; ?></td>
+                                <td><?= $data['kd_rak']; ?></td>
                             </tr>
                           <?php $no++;}?>
                         </tbody>

@@ -4,6 +4,7 @@ use CodeIgniter\Controller;
 use App\Models\PustakaModel;
 use App\Models\UserModel;
 use App\Models\RakModel;
+// use App\Controller\Auth;
 
 class Adm extends Controller{
 
