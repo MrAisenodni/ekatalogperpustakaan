@@ -1,4 +1,5 @@
 <?= $this->include('admin/layout/header') ?>
+
 <div class="row">
     <div class="col-md-12">
         <!-- DATA TABLE -->
@@ -14,10 +15,9 @@
                 <thead>
                     <tr>
                       <th>No</th>
-                      <th>NIS</th>
+                      <th>NIS/NIK</th>
                       <th>Nama</th>
-                      <th>Jenis Kelamin</th>
-                      <th>No. Telp</th>
+                      <th>No HP</th>
                       <th>Akses</th>
                       <th>Tanggal Daftar</th>
                       <th>Aksi</th>
@@ -30,10 +30,7 @@
                     <tr class="tr-shadow">
                         <td><?= $no; ?></td>
                         <td><?= $data['nis']; ?></td>
-                        <td>
-                            <span class="block-email"><?= $data['nama']; ?></span>
-                        </td>
-                        <td><?php if($data['jenkel']==='L'){echo 'Laki-Laki';}else{echo 'Perempuan';} ?></td>
+                        <td><?= $data['nama']; ?></td>
                         <td><?= $data['telp']; ?></td>
                         <td>
                             <span class="<?php if($data['akses']==='usr'){echo 'role user';}else{echo 'role admin';} ?>">
