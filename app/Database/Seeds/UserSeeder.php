@@ -14,13 +14,17 @@ class UserSeeder extends Seeder
 												'akses'    => 'pus',
 												'tgl_daftar'    => date('Y-m-d G:i:s'),
                 ];
-
-                // Simple Queries
-                $this->db->query("INSERT INTO user(nis,nama,jenkel,password,akses,tgl_daftar) VALUES(:nis:,:nama:,:jenkel:,:password:,:akses:,:tgl_daftar:)",
-                        $data
-                );
+								$data1 = [
+                        'nis' => '5678',
+                        'nama'    => 'User',
+												'jenkel'    => 'P',
+												'password'    => md5('sementara'),
+												'akses'    => 'usr',
+												'tgl_daftar'    => date('Y-m-d G:i:s'),
+                ];
 
                 // Using Query Builder
                 $this->db->table('user')->insert($data);
+								$this->db->table('user')->insert($data1);
 	}
 }

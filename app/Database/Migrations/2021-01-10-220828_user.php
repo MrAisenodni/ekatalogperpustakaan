@@ -7,9 +7,19 @@ class User extends Migration
 	public function up()
 	{
 		$this->forge->addField([
-                        'nis'          => [
+												'kd_user'          => [
+																'type'           => 'VARCHAR',
+																'constraint'     => 12,
+												],
+												'nis'          => [
                                 'type'           => 'VARCHAR',
                                 'constraint'     => 10,
+																'null'					 => true,
+                        ],
+												'nik'          => [
+                                'type'           => 'VARCHAR',
+                                'constraint'     => 16,
+																'null'					 => true,
                         ],
                         'nama'       => [
                                 'type'           => 'VARCHAR',
@@ -40,7 +50,7 @@ class User extends Migration
 																'type'           => 'DATETIME',
                         ],
                 ]);
-                $this->forge->addKey('nis', true);
+                $this->forge->addKey('kd_user', true);
                 $this->forge->createTable('user');
 	}
 

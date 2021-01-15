@@ -124,14 +124,14 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">john doe</a>
+                                            <a class="js-acc-btn" href="#"><?= $user['nama']; ?></a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
                                                 <h5 class="name">
-                                                    john doe
+                                                    <?= $user['nama']; ?>
                                                 </h5>
-                                                <span class="email">johndoe@example.com</span>
+                                                <span class="email"><?= $user['telp']; ?></span>
                                             </div>
                                             <!-- <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">

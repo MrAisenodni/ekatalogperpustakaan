@@ -2,13 +2,16 @@
 
 use CodeIgniter\Controller;
 use App\Models\UserModel;
+use App\Models\HistoryModel;
 
 class Auth extends BaseController
 {
 	// ROOT
 		protected $user;
+		protected $his;
 		public function __construct() {
 				$this->user = new UserModel();
+				$this->his = new HistoryModel();
 		}
 
 	public function index()
@@ -28,7 +31,9 @@ class Auth extends BaseController
             // $verify_pass = password_verify($password, $pass);
             if($password == $pass){
                 $ses_data = [
+										'kd_user'       => $data['kd_user'],
                     'nis'       => $data['nis'],
+										'nik'       => $data['nik'],
                     'nama'     => $data['nama'],
                     'jenkel'    => $data['jenkel'],
 										'tgllahir'    => $data['tgl_lahir'],
@@ -36,6 +41,13 @@ class Auth extends BaseController
 										'akses'    => $data['akses'],
                     'logged_in'     => TRUE
                 ];
+								$input = [
+									'kd_user' 			=> $ses_data['kd_user'],
+									'aksi' 			=> $ses_data['nama'].' Telah Login ke Sistem',
+									'akses' 		=> $ses_data['akses'],
+									'tgl_akses' => date('Y-m-d'),
+								];
+								$this->his->TambahHistory($input);
                 $session->set($ses_data);
 								//Berhasil
                 if($ses_data['akses']=='pus'){
@@ -59,8 +71,14 @@ class Auth extends BaseController
 	public function logout()
     {
         $session = session();
+				$input = [
+					'kd_user' 			=> $session->get('kd_user'),
+					'aksi' 			=> $session->get('nama').' Telah Logout dari Sistem',
+					'akses' 		=> $session->get('akses'),
+					'tgl_akses' => date('Y-m-d'),
+				];
+				$this->his->TambahHistory($input);
         $session->destroy();
         return redirect()->to('/login');
     }
-
 }

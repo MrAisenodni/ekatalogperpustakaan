@@ -26,7 +26,7 @@
                 <tbody>
                   <?php
                   $no = 1;
-                  foreach($user as $key => $data){?>
+                  foreach($usr as $key => $data){?>
                     <tr class="tr-shadow">
                         <td><?= $no; ?></td>
                         <td><?= $data['nis']; ?></td>

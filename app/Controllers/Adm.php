@@ -4,7 +4,6 @@ use CodeIgniter\Controller;
 use App\Models\PustakaModel;
 use App\Models\UserModel;
 use App\Models\RakModel;
-// use App\Controller\Auth;
 
 class Adm extends Controller{
 
@@ -12,10 +11,12 @@ class Adm extends Controller{
 	protected $pustaka;
 	protected $user;
 	protected $rak;
+	protected $session;
 	public function __construct() {
 			$this->pustaka = new PustakaModel();
 			$this->user = new UserModel();
 			$this->rak = new RakModel();
+			$this->session = session();
 	}
 
 	public function index()
@@ -26,6 +27,7 @@ class Adm extends Controller{
 			'title' => 'Dashboard',
 			'numpus' => $pus,
 			'numusr' => $usr,
+			'user' => $this->session->get(),
 		];
 		return view('admin/index', $data);
 	}
@@ -37,6 +39,7 @@ class Adm extends Controller{
 		$data = [
 			'title' => 'Rak',
 			'rak' => $drak,
+			'user' => $this->session->get(),
 		];
 		return view('admin/rak', $data);
 	}
@@ -129,6 +132,7 @@ class Adm extends Controller{
 					'title' => 'Pustaka',
 					'pustaka' => $all,
 					'rak' => $drak,
+					'user' => $this->session->get(),
 				];
 				return view('admin/katalog', $data);
 			}
@@ -248,7 +252,8 @@ class Adm extends Controller{
 		$all = $this->user->getUser();
 		$data = [
 			'title' => 'User',
-			'user' => $all,
+			'usr' => $all,
+			'user' => $this->session->get(),
 		];
 		return view('admin/user', $data);
 	}

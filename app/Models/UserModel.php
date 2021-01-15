@@ -20,6 +20,14 @@ class UserModel extends Model
                         ->getRowArray();
         }
     }
+    function KodeUser(){
+        return $this->table('user')
+                    ->select('kd_user')
+                    ->orderBy('kd_user','DESC')
+                    ->limit(1)
+                    ->get()
+                    ->getRowArray();
+    }
     function Login(){
         return $this->table('user')
                     ->select('nis','password')

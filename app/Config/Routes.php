@@ -30,18 +30,23 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-// $routes->get('/', 'Home::index', ['filter' => 'auth']);
-// $routes->post('res', 'Home::search', ['filter' => 'auth']);
-$routes->get('/', 'Home::index');
-$routes->post('res', 'Home::search');
+$routes->get('/', 'Home::index', ['filter' => 'auth']);
+$routes->post('res', 'Home::search', ['filter' => 'auth']);
+// $routes->get('/', 'Home::index');
+// $routes->post('res', 'Home::search');
 $routes->get('login', 'Auth::index');
 $routes->post('login/proses', 'Auth::login');
 $routes->get('logout', 'Auth::logout');
 
-$routes->get('adm', 'Adm::index');
-$routes->get('adm_katalog', 'Adm::katalog');
-$routes->get('adm_rak', 'Adm::rak');
-$routes->get('adm_user', 'Adm::user');
+
+$routes->get('adm', 'Adm::index', ['filter' => 'auth']);
+$routes->get('adm_katalog', 'Adm::katalog', ['filter' => 'auth']);
+$routes->get('adm_rak', 'Adm::rak', ['filter' => 'auth']);
+$routes->get('adm_user', 'Adm::user', ['filter' => 'auth']);
+// $routes->get('adm', 'Adm::index');
+// $routes->get('adm_katalog', 'Adm::katalog');
+// $routes->get('adm_rak', 'Adm::rak');
+// $routes->get('adm_user', 'Adm::user');
 /**
  * --------------------------------------------------------------------
  * Additional Routing
