@@ -31,7 +31,6 @@ class User extends Migration
                         ],
 												'tgl_lahir' => [
 																'type'           => 'DATE',
-																'null'					 => true,
                         ],
 												'telp' => [
 																'type'           => 'VARCHAR',

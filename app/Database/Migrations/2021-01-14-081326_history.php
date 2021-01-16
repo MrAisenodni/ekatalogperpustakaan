@@ -9,7 +9,7 @@ class History extends Migration
 		$this->forge->addField([
                         'kd_user'          => [
                                 'type'           => 'VARCHAR',
-                                'constraint'     => 10,
+                                'constraint'     => 12,
                         ],
                         'aksi'       => [
                                 'type'           => 'VARCHAR',

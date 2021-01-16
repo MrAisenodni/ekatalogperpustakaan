@@ -20,9 +20,9 @@ class Pustaka extends Migration
 																'constraint'     => '100',
 																'null'					 => true,
                         ],
-												'editor' => [
+												'tmpt_terbit' => [
 																'type'           => 'VARCHAR',
-																'constraint'     => '100',
+																'constraint'     => '20',
 																'null'					 => true,
                         ],
 												'penerbit' => [
