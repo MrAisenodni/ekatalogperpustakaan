@@ -15,10 +15,12 @@
                                 <th scope="col">Kode</th>
                                 <th scope="col">Judul</th>
                                 <th scope="col">Pengarang</th>
-                                <th scope="col">Editor</th>
+                                <th scope="col">Tempat Terbit</th>
                                 <th scope="col">Penerbit</th>
                                 <th scope="col">Tahun</th>
+                                <th scope="col">Halaman</th>
                                 <th scope="col">Lokasi</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,15 +29,22 @@
                           foreach($hasil as $key => $data){
                           ?>
                             <tr>
+                                <form method="post" action="<?= base_url('loc')?>">
+                                <input type="hidden" value="<?= $data['kd_buku']; ?>" name="kd">
                                 <th scope="row"><?= $no; ?></th>
                                 <td><?= $data['kd_buku']; ?></td>
                                 <td><?= $data['judul']; ?></td>
                                 <td><?= $data['pengarang']; ?></td>
-                                <td><?= $data['editor']; ?></td>
+                                <td><?= $data['tmpt_terbit']; ?></td>
                                 <td><?= $data['penerbit']; ?></td>
                                 <td><?= $data['tahun']; ?></td>
                                 <td><?= $data['halaman']; ?></td>
-                                <td><?= $data['kd_rak']; ?></td>
+                                <td><?= $data['nama']; ?></td>
+                                <td>
+                                  <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Lihat Selengkapnya">
+                                    <i class="fa fa-location"></i> Lokasi
+                                  </button></td>
+                                </form>
                             </tr>
                           <?php $no++;}?>
                         </tbody>

@@ -32,6 +32,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index', ['filter' => 'auth']);
 $routes->post('res', 'Home::search', ['filter' => 'auth']);
+$routes->post('loc', 'Home::searchdetail', ['filter' => 'auth']);
 // $routes->get('/', 'Home::index');
 // $routes->post('res', 'Home::search');
 $routes->get('login', 'Auth::index');
@@ -41,6 +42,7 @@ $routes->get('logout', 'Auth::logout');
 
 $routes->get('adm', 'Adm::index', ['filter' => 'auth']);
 $routes->get('adm_katalog', 'Adm::katalog', ['filter' => 'auth']);
+$routes->get('adm_lap_katalog', 'Adm::cetakkatalog', ['filter' => 'auth']);
 $routes->get('adm_rak', 'Adm::rak', ['filter' => 'auth']);
 $routes->get('adm_user', 'Adm::user', ['filter' => 'auth']);
 $routes->get('adm_history', 'Adm::history', ['filter' => 'auth']);

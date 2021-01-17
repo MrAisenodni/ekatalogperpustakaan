@@ -163,7 +163,7 @@ class Adm extends Controller{
 		      $kd_buku = $jadi;
 		      $jdl = $this->request->getPost('judul');
 		      $peng = $this->request->getPost('pengarang');
-		      $edit = $this->request->getPost('editor');
+		      $tmpt = $this->request->getPost('tmpt');
 		      $terbit = $this->request->getPost('penerbit');
 		      $thn = $this->request->getPost('tahun');
 		      $hal = $this->request->getPost('halaman');
@@ -174,7 +174,7 @@ class Adm extends Controller{
 		        'kd_buku' => $kd_buku,
 		        'judul' => $jdl,
 		        'pengarang' => $peng,
-		        'editor' => $edit,
+		        'tmpt_terbit' => $tmpt,
 		        'penerbit' => $terbit,
 		        'tahun' => $thn,
 		        'halaman' => $hal,
@@ -245,6 +245,36 @@ class Adm extends Controller{
 		        return redirect()->to(base_url('adm_katalog'));
 		    }
 		    }
+
+				public function cetakkatalog()
+				{
+					date_default_timezone_set('Asia/Jakarta');
+					$all = $this->pustaka->getPustaka();
+					$data = view('admin/print_pustaka',[
+						'title' => 'Cetak Laporan Pustaka',
+						'pustaka' => $all,
+						'user' => $this->session->get(),
+					]);
+					$pdf = new \TCPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
+
+					$pdf->SetCreator(PDF_CREATOR);
+					// $pdf->SetAuthor('Dea Venditama');
+					$pdf->SetTitle('Laporan Pustaka');
+					$pdf->SetSubject('Laporan Pustaka');
+
+					$pdf->setPrintHeader(false);
+					$pdf->setPrintFooter(false);
+
+					$pdf->addPage();
+
+					// output the HTML content
+					$pdf->writeHTML($data, true, false, true, false, '');
+					//line ini penting
+					$this->response->setContentType('application/pdf');
+					//Close and output PDF document
+					$pdf->Output(date('d-m-Y').'_Laporan_Pustaka.pdf', 'I');
+
+				}
 
 // USER
 	public function user()
@@ -356,7 +386,7 @@ class Adm extends Controller{
 		$db      = \Config\Database::connect();
 		$all = $db->table('history')->get()->getResultArray();
 		$data = view('admin/print_history',[
-			'title' => 'Cetak History',
+			'title' => 'Cetak Laporan History',
 			'history' => $all,
 			'user' => $this->session->get(),
 		]);

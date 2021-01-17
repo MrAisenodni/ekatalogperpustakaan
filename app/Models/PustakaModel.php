@@ -10,11 +10,13 @@ class PustakaModel extends Model
     {
         if($term === false){
             return $this->table('pustaka')
+                        ->join('rak', 'pustaka.kd_rak = rak.kd_rak')
                         ->orderBy('kd_buku','ASC')
                         ->get()
                         ->getResultArray();
         } else {
             return $this->table('pustaka')
+                        ->join('rak', 'pustaka.kd_rak = rak.kd_rak')
                         ->like('judul', $term)
                         ->orLike('pengarang', $term)
                         ->orLike('penerbit', $term)
@@ -23,23 +25,21 @@ class PustakaModel extends Model
                         ->getResultArray();
         }
     }
-    public function getPustakaJoin($term = false)
+    public function getSearch($kd = false)
     {
-        if($term === false){
-            return $this->table('pustaka')
-                        // ->join('rak')
-                        ->orderBy('kd_buku','ASC')
-                        ->get()
-                        ->getResultArray();
-        } else {
-            return $this->table('pustaka')
-                        ->like('judul', $term)
-                        ->orLike('pengarang', $term)
-                        ->orLike('penerbit', $term)
-                        ->orLike('tahun', $term)
-                        ->get()
-                        ->getResultArray();
-        }
+      if($kd === false){
+          return $this->table('pustaka')
+                      ->join('rak', 'pustaka.kd_rak = rak.kd_rak')
+                      ->orderBy('kd_buku','ASC')
+                      ->get()
+                      ->getResultArray();
+      } else {
+          return $this->table('pustaka')
+                      ->join('rak', 'pustaka.kd_rak = rak.kd_rak')
+                      ->where('kd_buku', $kd)
+                      ->get()
+                      ->getResultArray();
+      }
     }
     function KodeBuku(){
         return $this->table('pustaka')

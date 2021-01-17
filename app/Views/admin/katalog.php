@@ -9,6 +9,9 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     <i class="fas fa-plus-circle"></i> Tambah Buku</button>
             </div>
+            <a class="btn btn-primary" href="<?= base_url('adm_lap_katalog')?>" target="_blank">
+                    <i class="fas fa-plus-circle"></i> Cetak Laporan Katalog</a>
+            </div>
         </div>
         <div class="table-responsive table-responsive-data2">
             <table class="table table-data2">
@@ -37,7 +40,7 @@
                             <span class="status--process"><?= $data['penerbit']; ?></span>
                         </td>
                         <td><?= $data['tahun']; ?></td>
-                        <td><?= $data['kd_rak']; ?></td>
+                        <td><?= $data['nama']; ?></td>
                         <td>
                             <div class="table-data-feature">
                                 <a href="<?= base_url('adm/ubahbuku/form/'.$data['kd_buku']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
@@ -87,8 +90,8 @@
                 <input type="text" class="form-control" id="exampleInputPassword1" name="pengarang">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Editor</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="editor">
+                <label for="exampleInputPassword1">Tempat Terbit</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" name="tmpt">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Penerbit</label>

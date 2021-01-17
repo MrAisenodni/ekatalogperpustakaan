@@ -38,6 +38,23 @@ class Home extends BaseController
 		$this->his->TambahHistory($input);
 		return view('main', $data);
 	}
+	public function searchdetail()
+	{
+		$kd = $this->request->getPost('kd');
+		$hsl = $this->pustaka->getSearch($kd);
+		$input = [
+			'kd_user' 			=> $this->session->get('kd_user'),
+			'aksi' 			=> $this->session->get('nama').' Sedang Mencari Detail Lokasi',
+			'akses' 		=> $this->session->get('akses'),
+			'tgl_akses' => date('Y-m-d'),
+		];
+		$data = [
+			'title' => 'Hasil Pencarian',
+			'hasil' => $hsl,
+		];
+		$this->his->TambahHistory($input);
+		return view('lokasi', $data);
+	}
 
 	//--------------------------------------------------------------------
 

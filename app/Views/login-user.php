@@ -5,8 +5,8 @@
                     <div class="alert alert-danger"><?= session()->getFlashdata('msg') ?></div>
                 <?php endif;?>
             <div class="form-group">
-                <label>Username / NIS</label>
-                <input class="au-input au-input--full" type="text" name="nis" placeholder="Masukan Username / NIS">
+                <label>NIK / NIS</label>
+                <input class="au-input au-input--full" type="text" name="nis" placeholder="Masukan NIK / NIS">
             </div>
             <div class="form-group">
                 <label>Kata Sandi</label>
