@@ -273,18 +273,18 @@ class Adm extends Controller{
 					// $jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns."001");
 			}else{
       	date_default_timezone_set('Asia/Jakarta');
-				$tmp = intval(substr($data['kd_user'],8)+1);
+				$tmp = intval(substr($data['kd_user'],9)+1);
 				if(strlen($tmp)==1){
-					$kd = sprintf("%8s", $tmp);
-					$jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns."00".$kd);
+					$kd = sprintf("%9s", $tmp);
+					$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns."00".$kd);
 				}else if(strlen($tmp)==2){
-					$kd = sprintf("%8s", $tmp);
-					$jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns."0".$kd);
+					$kd = sprintf("%9s", $tmp);
+					$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns."0".$kd);
 				}else if(strlen($tmp)==3){
-					$kd = sprintf("%8s", $tmp);
-					$jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns.$kd);
+					$kd = sprintf("%9s", $tmp);
+					$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns.$kd);
 				}else{
-					$jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns."001");
+					$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns."001");
 				}
 			}
       	// Mengambil value dari form dengan method POST
@@ -327,6 +327,58 @@ class Adm extends Controller{
       }
     }
 
-	//--------------------------------------------------------------------
+		function hapususer($kd_user){
+			// Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
+		$hapus = $this->user->HapusUser($kd_user);
+
+		// Jika berhasil melakukan hapus
+		if($hapus)
+		{
+				return redirect()->to(base_url('adm_user'));
+		}
+		}
+
+	//HISTORY
+	public function history()
+	{
+		$db      = \Config\Database::connect();
+		$all = $db->table('history')->get()->getResultArray();
+		$data = [
+			'title' => 'History',
+			'history' => $all,
+			'user' => $this->session->get(),
+		];
+		return view('admin/history', $data);
+	}
+	public function cetakhistory()
+	{
+		date_default_timezone_set('Asia/Jakarta');
+		$db      = \Config\Database::connect();
+		$all = $db->table('history')->get()->getResultArray();
+		$data = view('admin/print_history',[
+			'title' => 'Cetak History',
+			'history' => $all,
+			'user' => $this->session->get(),
+		]);
+		$pdf = new \TCPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
+
+		$pdf->SetCreator(PDF_CREATOR);
+		// $pdf->SetAuthor('Dea Venditama');
+		$pdf->SetTitle('Laporan Aksi User');
+		$pdf->SetSubject('Laporan Aksi User');
+
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
+
+		$pdf->addPage();
+
+		// output the HTML content
+		$pdf->writeHTML($data, true, false, true, false, '');
+		//line ini penting
+		$this->response->setContentType('application/pdf');
+		//Close and output PDF document
+		$pdf->Output(date('d-m-Y').'_Laporan_User.pdf', 'I');
+
+	}
 
 }

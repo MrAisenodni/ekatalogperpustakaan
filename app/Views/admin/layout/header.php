@@ -70,7 +70,11 @@
                         </li>
                         <li>
                             <a href="<?= base_url('adm_user'); ?>">
-                                <i class="fas fa-table"></i>User</a>
+                                <i class="fas fa-user"></i>User</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('adm_history'); ?>">
+                                <i class="fas fa-table"></i>History</a>
                         </li>
                     </ul>
                 </div>
@@ -102,7 +106,11 @@
                       </li>
                       <li>
                           <a href="<?= base_url('adm_user'); ?>">
-                              <i class="fas fa-table"></i>User</a>
+                              <i class="fas fa-user"></i>User</a>
+                      </li>
+                      <li>
+                          <a href="<?= base_url('adm_history'); ?>">
+                              <i class="fas fa-table"></i>History</a>
                       </li>
                     </ul>
                 </nav>

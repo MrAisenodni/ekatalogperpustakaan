@@ -41,9 +41,9 @@ class UserModel extends Model
                       ->insert($data);
         return $query;
     }
-    function HapusUser($nis){
+    function HapusUser($kd_user){
         $query = $this->table('user')
-                      ->where('nis',$nis)
+                      ->where('kd_user',$kd_user)
                       ->delete();
         return $query;
     }

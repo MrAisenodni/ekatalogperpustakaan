@@ -42,7 +42,7 @@
                                 <a href="edit-user.php" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="zmdi zmdi-edit"></i>
                                 </a>
-                                <a href="" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                <a href="<?= base_url('adm/hapususer/'.$data['kd_user']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
                                     <i class="zmdi zmdi-delete"></i>
                                 </a>
                                 <a href="detail-user.php" class="item" data-toggle="tooltip" data-placement="top" title="More">
@@ -75,21 +75,21 @@
           <div class="form-group">
               <label for="exampleInputPassword1">Akses</label><br>
               <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="akses" id="inlineRadio1" value="pus">
+                  <input class="form-check-input" type="radio" name="akses" id="pus" value="pus" onclick="disNIS()">
                   <label class="form-check-label" for="inlineRadio1">Admin</label>
               </div>
               <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="akses" id="inlineRadio2" value="usr">
+                  <input class="form-check-input" type="radio" name="akses" id="usr" value="usr" onclick="disNIK()">
                   <label class="form-check-label" for="inlineRadio2">User</label>
               </div>
           </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">NIS</label>
-                <input type="text" name="nis" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" name="nis" class="form-control" id="nis" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">NIK</label>
-                <input type="text" name="nik" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" name="nik" class="form-control" id="nik" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Nama</label>
@@ -127,3 +127,21 @@
     </div>
   </div>
 </div>
+<script>
+  function disNIS(){
+    var nis = document.getElementById('nis').disabled = true;
+    var nik = document.getElementById('nik').disabled = false;
+  }
+  function disNIK(){
+    var nik = document.getElementById('nik').disabled = true;
+    var nis = document.getElementById('nis').disabled = false;
+  }
+  // function Akses(){
+  //   var pus = document.getElementById('pus');
+  //   var usr = document.getElementById('usr');
+  //   var nis = document.getElementById('nis');
+  //   var nik = document.getElementById('nik');
+  //
+  //   if()
+  // }
+</script>

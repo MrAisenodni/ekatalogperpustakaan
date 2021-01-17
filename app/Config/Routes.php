@@ -43,6 +43,8 @@ $routes->get('adm', 'Adm::index', ['filter' => 'auth']);
 $routes->get('adm_katalog', 'Adm::katalog', ['filter' => 'auth']);
 $routes->get('adm_rak', 'Adm::rak', ['filter' => 'auth']);
 $routes->get('adm_user', 'Adm::user', ['filter' => 'auth']);
+$routes->get('adm_history', 'Adm::history', ['filter' => 'auth']);
+$routes->get('adm_lap_history', 'Adm::cetakhistory', ['filter' => 'auth']);
 // $routes->get('adm', 'Adm::index');
 // $routes->get('adm_katalog', 'Adm::katalog');
 // $routes->get('adm_rak', 'Adm::rak');
