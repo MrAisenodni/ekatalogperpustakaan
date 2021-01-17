@@ -29,7 +29,7 @@
                   foreach($usr as $key => $data){?>
                     <tr class="tr-shadow">
                         <td><?= $no; ?></td>
-                        <td><?= $data['nis']; ?></td>
+                        <td><?php if($data['nis']==null){echo $data['nik'];}else{echo $data['nis'];} ?></td>
                         <td><?= $data['nama']; ?></td>
                         <td><?= $data['telp']; ?></td>
                         <td>
@@ -53,34 +53,6 @@
                     </tr>
                     <tr class="spacer"></tr>
                     <?php $no++;} ?>
-                    <!-- <tr class="tr-shadow">
-                        <td>1</td>
-                        <td>12345</td>
-                        <td>
-                            <span class="block-email">Rangga</span>
-                        </td>
-                        <td>Perempuan</td>
-                        <td>2018-09-27</td>
-                        <td>
-                            <span class="status--process">12345678</span>
-                        </td>
-                        <td>
-                            <span class="role user">User</span>
-                        </td>
-                        <td>
-                            <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                    <i class="zmdi zmdi-edit"></i>
-                                </button>
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                    <i class="zmdi zmdi-delete"></i>
-                                </button>
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                    <i class="zmdi zmdi-more"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -100,9 +72,24 @@
       </div>
       <div class="modal-body">
         <form action="<?= base_url('/adm/tambahuser')?>" method="post">
+          <div class="form-group">
+              <label for="exampleInputPassword1">Akses</label><br>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="akses" id="inlineRadio1" value="pus">
+                  <label class="form-check-label" for="inlineRadio1">Admin</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="akses" id="inlineRadio2" value="usr">
+                  <label class="form-check-label" for="inlineRadio2">User</label>
+              </div>
+          </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">NIS</label>
                 <input type="text" name="nis" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">NIK</label>
+                <input type="text" name="nik" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Nama</label>
@@ -121,22 +108,11 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Tanggal Lahir</label>
-                <input type="date" name="tgllahir"class="form-control" id="exampleInputPassword1">
+                <input type="date" name="tgllahir"class="form-control" id="exampleInputPassword1" required>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Nomor Telepon</label>
                 <input type="text" name="telp" class="form-control" id="exampleInputPassword1">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Akses</label><br>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="akses" id="inlineRadio1" value="pus">
-                    <label class="form-check-label" for="inlineRadio1">Admin</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="akses" id="inlineRadio2" value="usr">
-                    <label class="form-check-label" for="inlineRadio2">User</label>
-                </div>
             </div>
       </div>
       <div class="modal-footer">

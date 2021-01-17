@@ -25,7 +25,14 @@ class Auth extends BaseController
 		$nis = $this->request->getPost('nis');
 		$password1 = $this->request->getPost('password');
 		$password = md5($password1);
-		$data = $this->user->where('nis', $nis)->first();
+		$ceknis = $this->user->where('nis', $nis)->first();
+		$ceknik = "";
+		if($ceknis==null){
+			$ceknik = $this->user->where('nik', $nis)->first();
+			$data = $ceknik;
+		}else{
+			$data = $ceknis;
+		}
 		if($data){
             $pass = $data['password'];
             // $verify_pass = password_verify($password, $pass);

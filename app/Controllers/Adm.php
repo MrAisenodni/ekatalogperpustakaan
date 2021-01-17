@@ -260,34 +260,64 @@ class Adm extends Controller{
 
 	public function tambahuser()
     {
-      date_default_timezone_set('Asia/Jakarta');
-      // Mengambil value dari form dengan method POST
-      $nis = $this->request->getPost('nis');
-      $nama = $this->request->getPost('nama');
-      $jenkel = $this->request->getPost('jk');
-      $lahir = $this->request->getPost('tgllahir');
-      $telp = $this->request->getPost('telp');
-      $akses = $this->request->getPost('akses');
-      $daftar = date('Y-m-d G:i:s');
-      $pass = MD5('sementara');
+			$data = $this->user->KodeUser();
+			$kd = "";
+			$jadi = "";
+			$jns = "";
+			if($this->request->getPost('akses')=='pus'){
+				$jns = 'P';
+			}else{
+				$jns = 'U';
+			}
+			if($data==null){
+					// $jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns."001");
+			}else{
+      	date_default_timezone_set('Asia/Jakarta');
+				$tmp = intval(substr($data['kd_user'],8)+1);
+				if(strlen($tmp)==1){
+					$kd = sprintf("%8s", $tmp);
+					$jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns."00".$kd);
+				}else if(strlen($tmp)==2){
+					$kd = sprintf("%8s", $tmp);
+					$jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns."0".$kd);
+				}else if(strlen($tmp)==3){
+					$kd = sprintf("%8s", $tmp);
+					$jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns.$kd);
+				}else{
+					$jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns."001");
+				}
+			}
+      	// Mengambil value dari form dengan method POST
+				$kdu = $jadi;
+      	$nis = $this->request->getPost('nis');
+				$nik = $this->request->getPost('nik');
+      	$nama = $this->request->getPost('nama');
+      	$jenkel = $this->request->getPost('jk');
+      	$lahir = $this->request->getPost('tgllahir');
+      	$telp = $this->request->getPost('telp');
+      	$akses = $this->request->getPost('akses');
+      	$daftar = date('Y-m-d G:i:s');
+      	$pass = MD5('sementara');
 
-      // Membuat array collection yang disiapkan untuk insert ke table
-      $data = [
-        'nis' => $nis,
-        'nama' => $nama,
-        'jenkel' => $jenkel,
-        'tgl_lahir' => $lahir,
-        'telp' => $telp,
-        'password' => $pass,
-        'akses' => $akses,
-        'tgl_daftar' => $daftar
-      ];
+      	// Membuat array collection yang disiapkan untuk insert ke table
+      	$data = [
+					'kd_user' => $kdu,
+        	'nis' => $nis,
+					'nik' => $nik,
+        	'nama' => $nama,
+        	'jenkel' => $jenkel,
+        	'tgl_lahir' => $lahir,
+        	'telp' => $telp,
+        	'password' => $pass,
+        	'akses' => $akses,
+        	'tgl_daftar' => $daftar
+      	];
 
-      /*
-      Membuat variabel simpan yang isinya merupakan memanggil function
-      insert_product dan membawa parameter data
-      */
-      $simpan = $this->user->TambahUser($data);
+      	/*
+      	Membuat variabel simpan yang isinya merupakan memanggil function
+      	insert_product dan membawa parameter data
+      	*/
+      	$simpan = $this->user->TambahUser($data);
 
       // Jika simpan berhasil, maka ...
       if(!$simpan){
