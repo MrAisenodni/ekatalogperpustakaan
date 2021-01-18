@@ -6,7 +6,7 @@ class HistoryModel extends Model
 {
     protected $table = "history";
 
-    public function getHistory($tgl = false)
+    public function getHistory($term = false)
     {
         if($nis === false){
             return $this->table('history')
@@ -15,7 +15,7 @@ class HistoryModel extends Model
                         ->getResultArray();
         } else {
             return $this->table('history')
-                        ->like('tgl_akses', $tgl)
+                        ->like('aksi', $term)
                         ->get()
                         ->getRowArray();
         }

@@ -17,6 +17,8 @@
                       <th>No</th>
                       <th>Kode Rak</th>
                       <th>Nama</th>
+                      <th>No. Lemari</th>
+                      <th>No. Rak</th>
                       <th>Jenis</th>
                       <th>Aksi</th>
                     </tr>
@@ -31,6 +33,8 @@
                             <?= $data['kd_rak']; ?>
                         </td>
                         <td class="desc"><?= $data['nama']; ?></td>
+                        <td class="desc"><?= $data['no_lemari']; ?></td>
+                        <td class="desc"><?= $data['no_rak']; ?></td>
                         <td>
                             <span class="status--process"><?= $data['jenis']; ?></span>
                         </td>
@@ -77,6 +81,14 @@
             <div class="form-group">
                 <label for="exampleInputPassword1">Nama</label>
                 <input type="text" class="form-control" id="exampleInputPassword1" name="nama">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">No. Lemari</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" name="nolem">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">No. Rak</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" name="norak">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Jenis</label>

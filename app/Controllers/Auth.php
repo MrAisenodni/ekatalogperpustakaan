@@ -52,7 +52,7 @@ class Auth extends BaseController
 									'kd_user' 			=> $ses_data['kd_user'],
 									'aksi' 			=> $ses_data['nama'].' Telah Login ke Sistem',
 									'akses' 		=> $ses_data['akses'],
-									'tgl_akses' => date('Y-m-d'),
+									'tgl_akses' => date('Y-m-d H:i:s'),
 								];
 								$this->his->TambahHistory($input);
                 $session->set($ses_data);
@@ -82,7 +82,7 @@ class Auth extends BaseController
 					'kd_user' 			=> $session->get('kd_user'),
 					'aksi' 			=> $session->get('nama').' Telah Logout dari Sistem',
 					'akses' 		=> $session->get('akses'),
-					'tgl_akses' => date('Y-m-d'),
+					'tgl_akses' => date('Y-m-d H:i:s'),
 				];
 				$this->his->TambahHistory($input);
         $session->destroy();

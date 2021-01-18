@@ -10,11 +10,20 @@ class Rak extends Migration
                         'kd_rak'          => [
                                 'type'           => 'INT',
                                 'constraint'     => 5,
-																'auto_increment' => true,
                         ],
                         'nama'       => [
                                 'type'           => 'VARCHAR',
                                 'constraint'     => '100',
+                        ],
+												'no_lemari' => [
+																'type'           => 'INT',
+																'constraint'     => '3',
+																'null'					 => true,
+                        ],
+												'no_rak' => [
+																'type'           => 'INT',
+																'constraint'     => '3',
+																'null'					 => true,
                         ],
                         'jenis' => [
 																'type'           => 'VARCHAR',

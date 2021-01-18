@@ -22,14 +22,14 @@ class RakModel extends Model
                         ->getResultArray();
         }
     }
-  //   function KodeBuku(){
-  //       return $this->table('pustaka')
-  //                   ->select('kd_buku')
-  //                   ->orderBy('kd_buku','DESC')
-  //                   ->limit(1)
-  //                   ->get()
-  //                   ->getRowArray();
-  // }
+    function KodeRak(){
+        return $this->table('rak')
+                    ->select('kd_rak')
+                    ->orderBy('kd_rak','DESC')
+                    ->limit(1)
+                    ->get()
+                    ->getRowArray();
+  }
 
     function TambahRak($data){
         $query = $this->protect(false)

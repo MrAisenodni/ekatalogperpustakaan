@@ -20,7 +20,7 @@ class History extends Migration
 																'constraint'     => ['usr','pus'],
                         ],
 												'tgl_akses' => [
-																'type'           => 'DATE',
+																'type'           => 'DATETIME',
 																'null'					 => true,
                         ],
                 ]);

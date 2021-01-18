@@ -45,14 +45,41 @@ class Adm extends Controller{
 	}
 
 	public function tambahrak(){
+		$data = $this->rak->KodeRak();
+		$kd = "";
+		$jadi = "";
+		date_default_timezone_set('Asia/Jakarta');
+				if($data==null){
+					$jadi = str_replace(" ","",date('m')."001");
+				}else{
+						$tmp = intval(substr($data['kd_rak'],2)+1);
+						if(strlen($tmp)==1){
+							$kd = sprintf("%2s", $tmp);
+							$jadi = str_replace(" ","",date('m')."00".$kd);
+						}else if(strlen($tmp)==2){
+							$kd = sprintf("%2s", $tmp);
+							$jadi = str_replace(" ","",date('m')."0".$kd);
+						}else if(strlen($tmp)==3){
+							$kd = sprintf("%2s", $tmp);
+							$jadi = str_replace(" ","",date('m').$kd);
+						}else{
+							// $jadi = str_replace(" ","",date('Ymis')."001");
+						}
+				}
       // Mengambil value dari form dengan method POST
+			$kode = $jadi;
       $nama = $this->request->getPost('nama');
+			$lemari = $this->request->getPost('nolem');
+			$rak = $this->request->getPost('norak');
       $jenis = $this->request->getPost('jenis');
       $gambar = $this->request->getFile('gmb');
 
       // Membuat array collection yang disiapkan untuk insert ke table
       $data = [
+				'kd_rak' => $kode,
         'nama' => $nama,
+				'no_lemari' => $lemari,
+				'no_rak' => $rak,
         'jenis' => $jenis,
         'gambar' => $gambar->getName(),
       ];
@@ -114,12 +141,12 @@ class Adm extends Controller{
     }
     function hapusrak($kd){
       // Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
-    $hapus = $this->pustaka->HapusBuku($kd);
+    $hapus = $this->rak->HapusRak($kd);
 
     // Jika berhasil melakukan hapus
     if($hapus)
     {
-        return redirect()->to(base_url('adm_katalog'));
+        return redirect()->to(base_url('adm_rak'));
     }
     }
 
@@ -249,7 +276,8 @@ class Adm extends Controller{
 				public function cetakkatalog()
 				{
 					date_default_timezone_set('Asia/Jakarta');
-					$all = $this->pustaka->getPustaka();
+					$term = 'Mencari';
+					$all = $this->history->getHistory($term);
 					$data = view('admin/print_pustaka',[
 						'title' => 'Cetak Laporan Pustaka',
 						'pustaka' => $all,
@@ -382,9 +410,10 @@ class Adm extends Controller{
 	}
 	public function cetakhistory()
 	{
+		$term = 'Login';
 		date_default_timezone_set('Asia/Jakarta');
 		$db      = \Config\Database::connect();
-		$all = $db->table('history')->get()->getResultArray();
+		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
 		$data = view('admin/print_history',[
 			'title' => 'Cetak Laporan History',
 			'history' => $all,

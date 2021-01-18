@@ -33,7 +33,7 @@ class Home extends BaseController
 			'kd_user' 			=> $this->session->get('kd_user'),
 			'aksi' 			=> $this->session->get('nama').' Sedang Mencari '.$term,
 			'akses' 		=> $this->session->get('akses'),
-			'tgl_akses' => date('Y-m-d'),
+			'tgl_akses' => date('Y-m-d H:i:s'),
 		];
 		$this->his->TambahHistory($input);
 		return view('main', $data);
@@ -46,7 +46,7 @@ class Home extends BaseController
 			'kd_user' 			=> $this->session->get('kd_user'),
 			'aksi' 			=> $this->session->get('nama').' Sedang Mencari Detail Lokasi',
 			'akses' 		=> $this->session->get('akses'),
-			'tgl_akses' => date('Y-m-d'),
+			'tgl_akses' => date('Y-m-d H:i:s'),
 		];
 		$data = [
 			'title' => 'Hasil Pencarian',

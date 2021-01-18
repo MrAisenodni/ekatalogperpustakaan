@@ -18,10 +18,10 @@
 		</style>
 	</head>
 	<body>
-		<div style="font-size:64px; color:'#dddddd'"><i>Laporan User</i></div>
+		<div style="font-size:20px; font-style: oblique; color:'#dddddd'; text-align: center;"><i>Laporan Kunjungan Perpustakaan</i></div>
 		<p>
-		<i>Perpustakaan</i><br>
-		Jakarta, Indonesia
+		<i>Perpustakaan SMA Negeri 6 Bekasi</i><br>
+		PERUMAHAN PONDOK MITRA LESTARI, Jl. Asri Lestari Raya No.25, RT.008/RW.005, Jaka Setia, Kec. Jatiasih, Kota Bks, Jawa Barat 17147
 		</p>
 		<hr>
 		<hr>
