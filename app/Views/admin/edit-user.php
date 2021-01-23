@@ -1,72 +1,100 @@
-<?php require_once("src/header.php"); ?>
+<?= $this->include('admin/layout/header') ?>
+
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-md-10">
         <div class="card">
-            <div class="card-header">
-                <strong>Katalog</strong>
-                <small> Edit</small>
-            </div>
             <div class="card-body card-block">
-                <form>
+                <h3 class="title-5 m-b-35">UBAH PENGGUNA</h3>
+                <div class="col-md-13">
+                  <?php if(session()->getFlashdata('pesan')) : ?>
+                  <div class="alert alert-success alert-dismissable fade show" role="alert">
+                    <?= session()->getFlashdata('pesan'); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <?php endif; ?>
+                </div>
+                <form action="<?= base_url('/adm/ubahuser/'.$usr['kd_user']); ?>" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Akses</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="akses" id="pus" value="pus" onclick="disNIS()" <?php if($usr['akses']=='pus') { echo 'checked';} ?>>
+                            <label class="form-check-label" for="inlineRadio1">Pustakawan</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="akses" id="usr" value="usr" onclick="disNIK()"  <?php if($usr['akses']=='usr') { echo 'checked';} ?>>
+                            <label class="form-check-label" for="inlineRadio2">Peserta Didik</label>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">NIS</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="text" name="nis" class="form-control" id="nis" aria-describedby="emailHelp" value="<?= $usr['nis']; ?>" onload="disNIK()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">NIK</label>
+                        <input type="text" name="nik" class="form-control" id="nik" aria-describedby="emailHelp" value="<?= $usr['nik']; ?>">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Nama</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1">
+                        <input type="text" name="nama" class="form-control" id="exampleInputPassword1" value="<?= $usr['nama']; ?>">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Jenis Kelamin</label><br>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio1" value="option1">
+                            <input class="form-check-input" type="radio" name="jk" id="inlineRadio1" value="L" <?php if($usr['jenkel']=='L') { echo 'checked';} ?>>
                             <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio2" value="option2">
+                            <input class="form-check-input" type="radio" name="jk" id="inlineRadio2" value="P" <?php if($usr['jenkel']=='P') { echo 'checked';} ?>>
                             <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="exampleInputPassword1">
+                        <input type="date" name="tgllahir"class="form-control" id="exampleInputPassword1" required value="<?= $usr['tgl_lahir']; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Nomor Telepon</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1">
+                        <label for="exampleInputPassword1">Nomor HP</label>
+                        <input type="text" name="telp" class="form-control" id="exampleInputPassword1" value="<?= $usr['telp']; ?>">
                     </div>
                     <div class="form-group">
-                     <label for="exampleInputPassword1">Akses</label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="akses" id="inlineRadio1" value="option1">
-                            <label class="form-check-label" for="inlineRadio1">Admin</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="akses" id="inlineRadio2" value="option2">
-                            <label class="form-check-label" for="inlineRadio2">User</label>
-                        </div>
+                        <label for="exampleInputPassword1">Password Baru</label>
+                        <input type="password" name="pass" class="form-control" id="exampleInputPassword1">
                     </div>
-                    <hr>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <i class="fas fa-times"></i> Tutup
-                    </button>
-                    <button type="button" class="btn btn-primary">
-                        <i class="fas fa-check-circle"></i> Simpan
-                    </button>
+                    <div class="modal-footer">
+                        <a href="<?= base_url('adm_user'); ?>">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-times"></i> Batal
+                            </button>
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-check-circle"></i> Simpan
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-header">
-            </div>
-            <div class="card-body card-block">
-            </div>
-            <div class="card-footer">
-
-            </div>
-        </div>
-    </div>
 </div>
-<?php require_once("src/footer.php"); ?>
+
+<?= $this->include('admin/layout/footer') ?>
+
+<script>
+    function disNIS(){
+        var nis = document.getElementById('nis').disabled = true;
+        var nik = document.getElementById('nik').disabled = false;
+    }
+    function disNIK(){
+        var nik = document.getElementById('nik').disabled = true;
+        var nis = document.getElementById('nis').disabled = false;
+    }
+    // function Akses(){
+    //   var pus = document.getElementById('pus');
+    //   var usr = document.getElementById('usr');
+    //   var nis = document.getElementById('nis');
+    //   var nik = document.getElementById('nik');
+    //
+    //   if()
+    // }
+</script>

@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>E-Katalog Perpustakaan - SMA 6 Bekasi</title>
+    <title>Sistem Informasi Perpustakaan - SMA 6 Bekasi</title>
 
     <!-- Fontfaces CSS-->
     <link href="admin/css/font-face.css" rel="stylesheet" media="all">

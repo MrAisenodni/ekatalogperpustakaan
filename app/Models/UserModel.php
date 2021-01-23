@@ -20,6 +20,12 @@ class UserModel extends Model
                         ->getRowArray();
         }
     }
+    public function getUserKode($kd_user) {
+        return $this->table('user')
+                    ->where('kd_user',$kd_user)
+                    ->get()
+                    ->getRowArray();
+    }
     function KodeUser(){
         return $this->table('user')
                     ->select('kd_user')
@@ -47,11 +53,11 @@ class UserModel extends Model
                       ->delete();
         return $query;
     }
-    function UbahUser($data,$nis){
+    function UbahUser($data,$kd_user){
         $query = $this->protect(false)
                       ->table('user')
                       ->set($data)
-                      ->where('nis',$nis)
+                      ->where('kd_user',$kd_user)
                       ->update();
     }
 

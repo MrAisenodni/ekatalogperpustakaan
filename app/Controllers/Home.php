@@ -18,7 +18,10 @@ class Home extends BaseController
 
 	public function index()
 	{
-		return view('index');
+		$data = [
+			'user' => $this->session->get()
+		];
+		return view('index', $data);
 	}
 
 	public function search()
@@ -30,9 +33,9 @@ class Home extends BaseController
 			'hasil' => $hsl,
 		];
 		$input = [
-			'kd_user' 			=> $this->session->get('kd_user'),
-			'aksi' 			=> $this->session->get('nama').' Sedang Mencari '.$term,
-			'akses' 		=> $this->session->get('akses'),
+			'kd_user'	=> $this->session->get('kd_user'),
+			'aksi' 		=> $this->session->get('nama').' Sedang Mencari '.$term,
+			'akses' 	=> $this->session->get('akses'),
 			'tgl_akses' => date('Y-m-d H:i:s'),
 		];
 		$this->his->TambahHistory($input);
@@ -43,9 +46,9 @@ class Home extends BaseController
 		$kd = $this->request->getPost('kd');
 		$hsl = $this->pustaka->getSearch($kd);
 		$input = [
-			'kd_user' 			=> $this->session->get('kd_user'),
-			'aksi' 			=> $this->session->get('nama').' Sedang Mencari Detail Lokasi',
-			'akses' 		=> $this->session->get('akses'),
+			'kd_user'	=> $this->session->get('kd_user'),
+			'aksi' 		=> $this->session->get('nama').' Sedang Mencari Detail Lokasi',
+			'akses' 	=> $this->session->get('akses'),
 			'tgl_akses' => date('Y-m-d H:i:s'),
 		];
 		$data = [

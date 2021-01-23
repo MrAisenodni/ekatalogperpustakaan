@@ -7,16 +7,16 @@ use App\Models\RakModel;
 
 class Adm extends Controller{
 
-// ROOT
+	// ROOT
 	protected $pustaka;
 	protected $user;
 	protected $rak;
 	protected $session;
 	public function __construct() {
-			$this->pustaka = new PustakaModel();
-			$this->user = new UserModel();
-			$this->rak = new RakModel();
-			$this->session = session();
+		$this->pustaka = new PustakaModel();
+		$this->user = new UserModel();
+		$this->rak = new RakModel();
+		$this->session = session();
 	}
 
 	public function index()
@@ -24,22 +24,22 @@ class Adm extends Controller{
 		$pus = $this->pustaka->countAllResults();
 		$usr = $this->user->countAllResults();
 		$data = [
-			'title' => 'Dashboard',
-			'numpus' => $pus,
-			'numusr' => $usr,
-			'user' => $this->session->get(),
+			'title' 	=> 'Dashboard',
+			'numpus'	=> $pus,
+			'numusr'	=> $usr,
+			'user' 		=> $this->session->get(),
 		];
 		return view('admin/index', $data);
 	}
 
-// RAK
+	// START CRUD Rak 
 	public function rak()
 	{
 		$drak = $this->rak->getRak();
 		$data = [
-			'title' => 'Rak',
-			'rak' => $drak,
-			'user' => $this->session->get(),
+			'title' 	=> 'Kelola Rak',
+			'rak' 		=> $drak,
+			'user' 		=> $this->session->get(),
 		];
 		return view('admin/rak', $data);
 	}
@@ -49,382 +49,431 @@ class Adm extends Controller{
 		$kd = "";
 		$jadi = "";
 		date_default_timezone_set('Asia/Jakarta');
-				if($data==null){
-					$jadi = str_replace(" ","",date('m')."001");
-				}else{
-						$tmp = intval(substr($data['kd_rak'],2)+1);
-						if(strlen($tmp)==1){
-							$kd = sprintf("%2s", $tmp);
-							$jadi = str_replace(" ","",date('m')."00".$kd);
-						}else if(strlen($tmp)==2){
-							$kd = sprintf("%2s", $tmp);
-							$jadi = str_replace(" ","",date('m')."0".$kd);
-						}else if(strlen($tmp)==3){
-							$kd = sprintf("%2s", $tmp);
-							$jadi = str_replace(" ","",date('m').$kd);
-						}else{
-							// $jadi = str_replace(" ","",date('Ymis')."001");
-						}
-				}
-      // Mengambil value dari form dengan method POST
-			$kode = $jadi;
-      $nama = $this->request->getPost('nama');
-			$lemari = $this->request->getPost('nolem');
-			$rak = $this->request->getPost('norak');
-      $jenis = $this->request->getPost('jenis');
-      $gambar = $this->request->getFile('gmb');
+		if($data==null){
+			$jadi = str_replace(" ","",date('m')."001");
+		}else{
+			$tmp = intval(substr($data['kd_rak'],2)+1);
+			if(strlen($tmp)==1){
+				$kd = sprintf("%2s", $tmp);
+				$jadi = str_replace(" ","",date('m')."00".$kd);
+			}else if(strlen($tmp)==2){
+				$kd = sprintf("%2s", $tmp);
+				$jadi = str_replace(" ","",date('m')."0".$kd);
+			}else if(strlen($tmp)==3){
+				$kd = sprintf("%2s", $tmp);
+				$jadi = str_replace(" ","",date('m').$kd);
+			}else{
+				// $jadi = str_replace(" ","",date('Ymis')."001");
+			}
+		}
+	    // Mengambil value dari form dengan method POST
+		$kode = $jadi;
+        $nama = $this->request->getPost('nama');
+		$lemari = $this->request->getPost('nolem');
+		$rak = $this->request->getPost('norak');
+        $jenis = $this->request->getPost('jenis');
+        $gambar = $this->request->getFile('gmb');
 
-      // Membuat array collection yang disiapkan untuk insert ke table
-      $data = [
-				'kd_rak' => $kode,
-        'nama' => $nama,
-				'no_lemari' => $lemari,
-				'no_rak' => $rak,
-        'jenis' => $jenis,
-        'gambar' => $gambar->getName(),
-      ];
+    	// Membuat array collection yang disiapkan untuk insert ke table
+        $data = [
+			'kd_rak' 	=> $kode,
+        	'nama' 		=> $nama,
+			'no_lemari' => $lemari,
+			'no_rak' 	=> $rak,
+        	'jenis' 	=> $jenis,
+        	'gambar' 	=> $gambar->getName(),
+      	];
 
-      /*
-      Membuat variabel simpan yang isinya merupakan memanggil function
-      insert_product dan membawa parameter data
-      */
-      $simpan = $this->rak->TambahRak($data);
+    	/*
+    	Membuat variabel simpan yang isinya merupakan memanggil function
+    	insert_product dan membawa parameter data
+    	*/
+
+		// Validasi kelengkapan data
+		$validation = \Config\Services::validation();
+
+		if(!$this->validate([
+			'nama' 	=> 'required',
+			'nolem' => 'required',
+			'norak' => 'required',
+			'jenis' => 'required',
+			'gmb'	=> 'required'
+		])) {
+			// Cek kelengkapan data
+			session()->setFlashdata('pesan', 'Data Belum Lengkap.');
+			return redirect()->to(base_url('adm_rak'));
+		}else{
+			$simpan = $this->rak->TambahRak($data);
 			$gambar->move(ROOTPATH.'public/gmb');
 
-      // Jika simpan berhasil, maka ...
-      if(!$simpan){
-        return redirect()->to(base_url('adm_rak'));
-      }else{
-        return redirect()->to(base_url('adm_rak'));
-      }
+			// Jika simpan berhasil, maka ...
+	        if(!$simpan){
+		      	session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan.');
+			    return redirect()->to(base_url('adm_rak'));
+		    }else{
+		    	session()->setFlashdata('pesan', 'Data Gagal Ditambahkan.');
+				return redirect()->to(base_url('adm_rak'));
+		    }
+		}
     }
 
-		function ubahrak($stat,$kd){
-      if($stat=='submit'){
-        // Mengambil value dari form dengan method POST
-        $jdl = $this->request->getPost('judul');
-        $peng = $this->request->getPost('pengarang');
-        $edit = $this->request->getPost('editor');
-        $terbit = $this->request->getPost('penerbit');
-        $thn = $this->request->getPost('tahun');
-        $hal = $this->request->getPost('halaman');
-        $loc = $this->request->getPost('lokasi');
+	public function ubahrak($stat,$kd){
+    	if($stat=='submit'){
+	        // Mengambil value dari form dengan method POST
+	        $jdl = $this->request->getPost('judul');
+	        $peng = $this->request->getPost('pengarang');
+	        $edit = $this->request->getPost('editor');
+	        $terbit = $this->request->getPost('penerbit');
+	        $thn = $this->request->getPost('tahun');
+	        $hal = $this->request->getPost('halaman');
+	        $loc = $this->request->getPost('lokasi');
 
-        // Membuat array collection yang disiapkan untuk insert ke table
-        $data = [
-          'judul' => $jdl,
-          'pengarang' => $peng,
-          'editor' => $edit,
-          'penerbit' => $terbit,
-          'tahun' => $thn,
-          'halaman' => $hal,
-          'lokasi' => $loc
-        ];
-
-        /*
-        Membuat variabel ubah yang isinya merupakan memanggil function
-        update_product dan membawa parameter data beserta id
-        */
-        $ubah = $this->pustaka->UbahBuku($data, $kd);
-
-        // Jika berhasil melakukan ubah
-        if(!$ubah)
-        {
-          return redirect()->to(base_url('adm_katalog'));
-        }else{
-          return redirect()->to(base_url('adm_katalog'));
-        }
-      }else{
-        $data['pustaka'] = $this->pustaka->getPustaka($kd);
-        return view('adm/ubah', $data);
-      }
-    }
-    function hapusrak($kd){
-      // Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
-    $hapus = $this->rak->HapusRak($kd);
-
-    // Jika berhasil melakukan hapus
-    if($hapus)
-    {
-        return redirect()->to(base_url('adm_rak'));
-    }
-    }
-
-		// KATALOG/BUKU/PUSTAKA
-			public function katalog()
-			{
-				$all = $this->pustaka->getPustaka();
-				$drak = $this->rak->getRak();
-				$data = [
-					'title' => 'Pustaka',
-					'pustaka' => $all,
-					'rak' => $drak,
-					'user' => $this->session->get(),
-				];
-				return view('admin/katalog', $data);
-			}
-
-			public function tambahbuku(){
-		      $data = $this->pustaka->KodeBuku();
-		      $kd = "";
-		      $jadi = "";
-		      date_default_timezone_set('Asia/Jakarta');
-							if($data==null){
-								$jadi = str_replace(" ","",date('Ymis')."001");
-							}else{
-		              $tmp = intval(substr($data['kd_buku'],10)+1);
-		              if(strlen($tmp)==1){
-		                $kd = sprintf("%10s", $tmp);
-		                $jadi = str_replace(" ","",date('Ymis')."00".$kd);
-		              }else if(strlen($tmp)==2){
-		                $kd = sprintf("%10s", $tmp);
-		                $jadi = str_replace(" ","",date('Ymis')."0".$kd);
-		              }else if(strlen($tmp)==3){
-		                $kd = sprintf("%10s", $tmp);
-		                $jadi = str_replace(" ","",date('Ymis').$kd);
-		              }else{
-		                // $jadi = str_replace(" ","",date('Ymis')."001");
-		              }
-							}
-		      // Mengambil value dari form dengan method POST
-		      $kd_buku = $jadi;
-		      $jdl = $this->request->getPost('judul');
-		      $peng = $this->request->getPost('pengarang');
-		      $tmpt = $this->request->getPost('tmpt');
-		      $terbit = $this->request->getPost('penerbit');
-		      $thn = $this->request->getPost('tahun');
-		      $hal = $this->request->getPost('halaman');
-		      $loc = $this->request->getPost('rak');
-
-		      // Membuat array collection yang disiapkan untuk insert ke table
-		      $data = [
-		        'kd_buku' => $kd_buku,
-		        'judul' => $jdl,
+	        // Membuat array collection yang disiapkan untuk insert ke table
+	        $data = [
+		        'judul' 	=> $jdl,
 		        'pengarang' => $peng,
-		        'tmpt_terbit' => $tmpt,
-		        'penerbit' => $terbit,
-		        'tahun' => $thn,
-		        'halaman' => $hal,
-		        'kd_rak' => $loc,
-		      ];
+		        'editor' 	=> $edit,
+		        'penerbit' 	=> $terbit,
+		        'tahun' 	=> $thn,
+		        'halaman' 	=> $hal,
+	         	'lokasi' 	=> $loc
+	        ];
 
-		      /*
-		      Membuat variabel simpan yang isinya merupakan memanggil function
-		      insert_product dan membawa parameter data
-		      */
-		      $simpan = $this->pustaka->TambahBuku($data);
+	        /*
+	        Membuat variabel ubah yang isinya merupakan memanggil function
+	        update_product dan membawa parameter data beserta id
+	        */
+	        $ubah = $this->pustaka->UbahBuku($data, $kd);
 
-		      // Jika simpan berhasil, maka ...
-		      if(!$simpan){
+	        // Jika berhasil melakukan ubah
+	        if(!$ubah)
+	        {
 		        return redirect()->to(base_url('adm_katalog'));
-		      }else{
+	        }else{
 		        return redirect()->to(base_url('adm_katalog'));
-		      }
+	        }
+	    }else{
+	        $data['pustaka'] = $this->pustaka->getPustaka($kd);
+	        return view('adm/ubah', $data);
+	    }
+    }
+
+    public function hapusrak($kd){
+      // Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
+	    $hapus = $this->rak->HapusRak($kd);
+
+	    // Jika berhasil melakukan hapus
+	    if($hapus)
+	    {
+	        return redirect()->to(base_url('adm_rak'));
+	    }
+    }
+    // END CRUD Rak
+
+	// START CRUD PUSTAKA
+	public function katalog()
+	{
+		$all = $this->pustaka->getPustaka();
+		$drak = $this->rak->getRak();
+		$data = [
+			'title' 	=> 'Kelola Pustaka',
+			'pustaka' 	=> $all,
+			'rak' 		=> $drak,
+			'user' 		=> $this->session->get(),
+		];
+		return view('admin/katalog', $data);
+	}
+
+	public function tambahbuku(){
+		$data = $this->pustaka->KodeBuku();
+		$kd = "";
+		$jadi = "";
+		date_default_timezone_set('Asia/Jakarta');
+		if($data==null){
+			$jadi = str_replace(" ","",date('Ymis')."001");
+		}else{
+			$tmp = intval(substr($data['kd_buku'],10)+1);
+		    if(strlen($tmp)==1){
+		    	$kd = sprintf("%10s", $tmp);
+		        $jadi = str_replace(" ","",date('Ymis')."00".$kd);
+			}else if(strlen($tmp)==2){
+		    	$kd = sprintf("%10s", $tmp);
+		        $jadi = str_replace(" ","",date('Ymis')."0".$kd);
+			}else if(strlen($tmp)==3){
+		    	$kd = sprintf("%10s", $tmp);
+		        $jadi = str_replace(" ","",date('Ymis').$kd);
+			}else{
+		    // $jadi = str_replace(" ","",date('Ymis')."001");
 		    }
+		}
+		// Mengambil value dari form dengan method POST
+		$kd_buku = $jadi;
+		$jdl = $this->request->getPost('judul');
+		$peng = $this->request->getPost('pengarang');
+		$tmpt = $this->request->getPost('tmpt');
+		$terbit = $this->request->getPost('penerbit');
+		$thn = $this->request->getPost('tahun');
+		$hal = $this->request->getPost('halaman');
+		$loc = $this->request->getPost('rak');
 
-				function ubahbuku($stat,$kd){
-		      if($stat=='submit'){
-		        // Mengambil value dari form dengan method POST
-		        $jdl = $this->request->getPost('judul');
-		        $peng = $this->request->getPost('pengarang');
-		        $edit = $this->request->getPost('editor');
-		        $terbit = $this->request->getPost('penerbit');
-		        $thn = $this->request->getPost('tahun');
-		        $hal = $this->request->getPost('halaman');
-		        $loc = $this->request->getPost('lokasi');
+		// Membuat array collection yang disiapkan untuk insert ke table
+		$data = [
+			'kd_buku' 		=> $kd_buku,
+			'judul' 		=> $jdl,
+			'pengarang' 	=> $peng,
+			'tmpt_terbit' 	=> $tmpt,
+			'penerbit' 		=> $terbit,
+			'tahun' 		=> $thn,
+			'halaman' 		=> $hal,
+			'kd_rak' 		=> $loc,
+		];
 
-		        // Membuat array collection yang disiapkan untuk insert ke table
-		        $data = [
-		          'judul' => $jdl,
-		          'pengarang' => $peng,
-		          'editor' => $edit,
-		          'penerbit' => $terbit,
-		          'tahun' => $thn,
-		          'halaman' => $hal,
-		          'lokasi' => $loc
-		        ];
+		/*
+		Membuat variabel simpan yang isinya merupakan memanggil function
+		insert_product dan membawa parameter data
+		*/
+		$simpan = $this->pustaka->TambahBuku($data);
 
-		        /*
-		        Membuat variabel ubah yang isinya merupakan memanggil function
-		        update_product dan membawa parameter data beserta id
-		        */
-		        $ubah = $this->pustaka->UbahBuku($data, $kd);
+		// Jika simpan berhasil, maka ...
+		if(!$simpan){
+			session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan.');
+			return redirect()->to(base_url('adm_katalog'));
+		}else{
+			session()->setFlashdata('pesan', 'Data Gagal Ditambahkan.');
+			return redirect()->to(base_url('adm_katalog'));
+		}
+    }
 
-		        // Jika berhasil melakukan ubah
-		        if(!$ubah)
-		        {
-		          return redirect()->to(base_url('adm_katalog'));
-		        }else{
-		          return redirect()->to(base_url('adm_katalog'));
-		        }
-		      }else{
-		        $data['pustaka'] = $this->pustaka->getPustaka($kd);
-		        return view('adm/ubah', $data);
-		      }
-		    }
-		    function hapusbuku($kd){
-		      // Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
-		    $hapus = $this->pustaka->HapusBuku($kd);
+	public function ubahbuku($stat,$kd){
+		if($stat=='submit'){
+			// Mengambil value dari form dengan method POST
+			$jdl = $this->request->getPost('judul');
+			$peng = $this->request->getPost('pengarang');
+			$edit = $this->request->getPost('editor');
+			$terbit = $this->request->getPost('penerbit');
+			$thn = $this->request->getPost('tahun');
+			$hal = $this->request->getPost('halaman');
+			$loc = $this->request->getPost('lokasi');
 
-		    // Jika berhasil melakukan hapus
-		    if($hapus)
-		    {
-		        return redirect()->to(base_url('adm_katalog'));
-		    }
-		    }
+			// Membuat array collection yang disiapkan untuk insert ke table
+			$data = [
+			'judul' => $jdl,
+			'pengarang' => $peng,
+			'editor' => $edit,
+			'penerbit' => $terbit,
+			'tahun' => $thn,
+			'halaman' => $hal,
+			'lokasi' => $loc
+			];
 
-				public function cetakkatalog()
-				{
-					date_default_timezone_set('Asia/Jakarta');
-					$term = 'Mencari';
-					$all = $this->history->getHistory($term);
-					$data = view('admin/print_pustaka',[
-						'title' => 'Cetak Laporan Pustaka',
-						'pustaka' => $all,
-						'user' => $this->session->get(),
-					]);
-					$pdf = new \TCPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
+			/*
+			Membuat variabel ubah yang isinya merupakan memanggil function
+			update_product dan membawa parameter data beserta id
+			*/
+			$ubah = $this->pustaka->UbahBuku($data, $kd);
 
-					$pdf->SetCreator(PDF_CREATOR);
-					// $pdf->SetAuthor('Dea Venditama');
-					$pdf->SetTitle('Laporan Pustaka');
-					$pdf->SetSubject('Laporan Pustaka');
+			// Jika berhasil melakukan ubah
+			if(!$ubah){
+				return redirect()->to(base_url('adm_katalog'));
+			}else{
+				return redirect()->to(base_url('adm_katalog'));
+			}
+		}else{
+			$data['pustaka'] = $this->pustaka->getPustaka($kd);
+			return view('adm/ubah', $data);
+		}
+	}
 
-					$pdf->setPrintHeader(false);
-					$pdf->setPrintFooter(false);
+    public function hapusbuku($kd){
+	    // Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
+	    $hapus = $this->pustaka->HapusBuku($kd);
 
-					$pdf->addPage();
+	    // Jika berhasil melakukan hapus
+	    if($hapus)
+	    {
+	        return redirect()->to(base_url('adm_katalog'));
+	    }
+    }
+    // END CRUD Buku
 
-					// output the HTML content
-					$pdf->writeHTML($data, true, false, true, false, '');
-					//line ini penting
-					$this->response->setContentType('application/pdf');
-					//Close and output PDF document
-					$pdf->Output(date('d-m-Y').'_Laporan_Pustaka.pdf', 'I');
-
-				}
-
-// USER
+	// START CRUD Pengguna
 	public function user()
 	{
 		$all = $this->user->getUser();
 		$data = [
-			'title' => 'User',
-			'usr' => $all,
-			'user' => $this->session->get(),
+			'title' => 'Kelola Pengguna',
+			'usr' 	=> $all,
+			'user'	=> $this->session->get(),
 		];
 		return view('admin/user', $data);
 	}
 
 	public function tambahuser()
     {
-			$data = $this->user->KodeUser();
-			$kd = "";
-			$jadi = "";
-			$jns = "";
-			if($this->request->getPost('akses')=='pus'){
-				$jns = 'P';
-			}else{
-				$jns = 'U';
-			}
-			if($data==null){
-					// $jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns."001");
-			}else{
+		$data = $this->user->KodeUser();
+		$kd = "";
+		$jadi = "";
+		$jns = "";
+		if($this->request->getPost('akses')=='pus'){
+			$jns = 'P';
+		}else{
+			$jns = 'U';
+		}
+		if($data==null){
+			// $jadi = str_replace(" ","",$this->request->getPost('tgllahir').$jns."001");
+		}else{
       	date_default_timezone_set('Asia/Jakarta');
-				$tmp = intval(substr($data['kd_user'],9)+1);
-				if(strlen($tmp)==1){
-					$kd = sprintf("%9s", $tmp);
-					$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns."00".$kd);
-				}else if(strlen($tmp)==2){
-					$kd = sprintf("%9s", $tmp);
-					$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns."0".$kd);
-				}else if(strlen($tmp)==3){
-					$kd = sprintf("%9s", $tmp);
-					$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns.$kd);
-				}else{
-					$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns."001");
-				}
+			$tmp = intval(substr($data['kd_user'],9)+1);
+			if(strlen($tmp)==1){
+				$kd = sprintf("%9s", $tmp);
+				$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns."00".$kd);
+			}else if(strlen($tmp)==2){
+				$kd = sprintf("%9s", $tmp);
+				$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns."0".$kd);
+			}else if(strlen($tmp)==3){
+				$kd = sprintf("%9s", $tmp);
+				$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns.$kd);
+			}else{
+				$jadi = str_replace(" ","",date("dmY", strtotime($this->request->getPost('tgllahir'))).$jns."001");
 			}
+		}
       	// Mengambil value dari form dengan method POST
-				$kdu = $jadi;
+		$kdu = $jadi;
       	$nis = $this->request->getPost('nis');
-				$nik = $this->request->getPost('nik');
+		$nik = $this->request->getPost('nik');
       	$nama = $this->request->getPost('nama');
       	$jenkel = $this->request->getPost('jk');
       	$lahir = $this->request->getPost('tgllahir');
       	$telp = $this->request->getPost('telp');
       	$akses = $this->request->getPost('akses');
       	$daftar = date('Y-m-d G:i:s');
-      	$pass = MD5('sementara');
+      	$pass = md5($this->request->getPost('pass'));
 
       	// Membuat array collection yang disiapkan untuk insert ke table
       	$data = [
-					'kd_user' => $kdu,
-        	'nis' => $nis,
-					'nik' => $nik,
-        	'nama' => $nama,
-        	'jenkel' => $jenkel,
+			'kd_user' 	=> $kdu,
+        	'nis' 		=> $nis,
+			'nik' 		=> $nik,
+        	'nama' 		=> $nama,
+        	'jenkel' 	=> $jenkel,
         	'tgl_lahir' => $lahir,
-        	'telp' => $telp,
-        	'password' => $pass,
-        	'akses' => $akses,
-        	'tgl_daftar' => $daftar
+        	'telp'		=> $telp,
+        	'password' 	=> $pass,
+        	'akses' 	=> $akses,
+        	'tgl_daftar'=> $daftar
       	];
 
       	/*
       	Membuat variabel simpan yang isinya merupakan memanggil function
       	insert_product dan membawa parameter data
       	*/
+
       	$simpan = $this->user->TambahUser($data);
 
-      // Jika simpan berhasil, maka ...
-      if(!$simpan){
-        return redirect()->to(base_url('adm_user'));
-      }else{
-        return redirect()->to(base_url('adm_user'));
-      }
+	    // Validasi Penyimpanan
+      
+	    if(!$simpan){
+	      	session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan.');
+		    return redirect()->to(base_url('adm_user'));
+	    }else{
+	    	session()->setFlashdata('pesan', 'Data Gagal Ditambahkan.');
+			return redirect()->to(base_url('adm_user'));
+	    }
     }
 
-		function hapususer($kd_user){
-			// Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
-		$hapus = $this->user->HapusUser($kd_user);
+    public function detailubahuser($kd_user)
+	{
+		$all = $this->user->getUserKode($kd_user);
+		$data = [
+			'title' => 'Ubah Pengguna',
+			'usr' 	=> $all,
+			'user'	=> $this->session->get(),
+		];
+		return view('admin/edit-user', $data);
+	}
 
-		// Jika berhasil melakukan hapus
-		if($hapus)
-		{
-				return redirect()->to(base_url('adm_user'));
-		}
-		}
+    public function ubahuser($kd_user){
+    	// dd($this->request->getVar());
+		// Mengambil value dari form dengan method POST
+      	$nis = $this->request->getPost('nis');
+		$nik = $this->request->getPost('nik');
+      	$nama = $this->request->getPost('nama');
+      	$jenkel = $this->request->getPost('jk');
+      	$lahir = $this->request->getPost('tgllahir');
+      	$telp = $this->request->getPost('telp');
+      	$akses = $this->request->getPost('akses');
+      	$daftar = date('Y-m-d G:i:s');
+      	$pass = md5($this->request->getPost('pass'));
 
-	//HISTORY
+      	// Membuat array collection yang disiapkan untuk insert ke table
+      	$data = [
+        	'nis' 		=> $nis,
+			'nik' 		=> $nik,
+        	'nama' 		=> $nama,
+        	'jenkel' 	=> $jenkel,
+        	'tgl_lahir' => $lahir,
+        	'telp'		=> $telp,
+        	'password' 	=> $pass,
+        	'akses' 	=> $akses,
+        	'tgl_update'=> $daftar
+      	];
+
+      	/*
+      	Membuat variabel simpan yang isinya merupakan memanggil function
+      	insert_product dan membawa parameter data
+      	*/
+
+      	$simpan = $this->user->UbahUser($data,$kd_user);
+
+	    // Validasi Penyimpanan
+      
+	    if(!$simpan){
+	      	session()->setFlashdata('pesan', 'Data Berhasil Diubah.');
+		    return redirect()->to(base_url('adm_user'));
+	    }else{
+	    	session()->setFlashdata('pesan', 'Data Gagal Diubah.');
+			return redirect()->to(base_url('adm_user'));
+	    }
+    }
+
+	public function hapususer($kd_user){
+		// Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
+		$this->user->HapusUser($kd_user);
+		session()->setFlashdata('pesan','Data Pengguna Berhasil Dihapus');
+		return redirect()->to(base_url('adm_user'));
+	}
+	// END CRUD Pengguna
+
+	// START CRUD Laporan
 	public function history()
 	{
 		$db      = \Config\Database::connect();
 		$all = $db->table('history')->get()->getResultArray();
 		$data = [
-			'title' => 'History',
-			'history' => $all,
-			'user' => $this->session->get(),
+			'title' 	=> 'History',
+			'history' 	=> $all,
+			'user' 		=> $this->session->get(),
 		];
 		return view('admin/history', $data);
 	}
-	public function cetakhistory()
+
+	public function cetakkatalog()
 	{
-		$term = 'Login';
 		date_default_timezone_set('Asia/Jakarta');
-		$db      = \Config\Database::connect();
-		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
-		$data = view('admin/print_history',[
-			'title' => 'Cetak Laporan History',
-			'history' => $all,
+		$term = 'Mencari';
+		$db = \Config\Database::connect();
+		$all = $this->history->getHistory($term);
+		$data = view('admin/print_pustaka',[
+			'title' => 'Cetak Laporan Pustaka',
+			'pustaka' => $all,
 			'user' => $this->session->get(),
 		]);
 		$pdf = new \TCPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
 
 		$pdf->SetCreator(PDF_CREATOR);
 		// $pdf->SetAuthor('Dea Venditama');
-		$pdf->SetTitle('Laporan Aksi User');
-		$pdf->SetSubject('Laporan Aksi User');
+		$pdf->SetTitle('Laporan Pustaka');
+		$pdf->SetSubject('Laporan Pustaka');
 
 		$pdf->setPrintHeader(false);
 		$pdf->setPrintFooter(false);
@@ -436,8 +485,39 @@ class Adm extends Controller{
 		//line ini penting
 		$this->response->setContentType('application/pdf');
 		//Close and output PDF document
-		$pdf->Output(date('d-m-Y').'_Laporan_User.pdf', 'I');
+		$pdf->Output(date('d-m-Y').'_Laporan_Pustaka.pdf', 'I');
 
 	}
 
+	public function cetakhistory()
+	{
+		$term = 'Login';
+		date_default_timezone_set('Asia/Jakarta');
+		$db = \Config\Database::connect();
+		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
+		$data = view('admin/print_history',[
+			'title' => 'Cetak Laporan Pengunjung',
+			'history' => $all,
+			'user' => $this->session->get(),
+		]);
+		$pdf = new \TCPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
+
+		$pdf->SetCreator(PDF_CREATOR);
+		// $pdf->SetAuthor('Dea Venditama');
+		$pdf->SetTitle('Laporan Pengunjung');
+		$pdf->SetSubject('Laporan Pengunjung');
+
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
+
+		$pdf->addPage();
+
+		// output the HTML content
+		$pdf->writeHTML($data, true, false, true, false, '');
+		//line ini penting
+		$this->response->setContentType('application/pdf');
+		//Close and output PDF document
+		$pdf->Output(date('d-m-Y').'_Laporan_Pengunjung.pdf', 'I');
+	}
+	// END CRUD Laporan
 }

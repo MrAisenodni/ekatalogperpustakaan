@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit User</title>
+    <title>Ubah Pengguna</title>
 </head>
 <body>
   <form action="<?=base_url('user/ubah/submit/'.$user['nis']); ?>" method="post">
@@ -14,7 +14,7 @@
     <input type="radio" name="jenkel" value="P"<?php if($user['jenkel']==='P'){echo "checked";}?>>Perempuan<br>
   <label>Tanggal Lahir : </label><input type="date" name="tgllahir" value="<?= $user['tgl_lahir'];?>"><br>
   <label>No. Telp : </label><input type="text" name="telp"  placeholder="No. Telp" value="<?= $user['telp']?>"><br>
-  <button type="submit" name="button">Tambah</button><a href="<?= base_url('user'); ?>">Back</a>
+  <button type="submit" name="button">Tambah</button><a href="<?= base_url('user'); ?>">Kembali</a>
   </form>
 </body>
 </html>

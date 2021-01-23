@@ -3,11 +3,14 @@
 <div class="row">
     <div class="col-md-12">
         <!-- DATA TABLE -->
-        <h3 class="title-5 m-b-35">HISTORY</h3>
+        <h3 class="title-5 m-b-35">LAPORAN</h3>
         <div class="table-data__tool">
             <div class="table-data__tool-right">
             <a class="btn btn-primary" href="<?= base_url('adm_lap_history')?>" target="_blank">
-                    <i class="fas fa-plus-circle"></i> Cetak Laporan History</a>
+                    <i class="fas fa-plus-circle"></i> Cetak Laporan Pengunjung</a>
+            </div>
+            <a class="btn btn-primary" href="<?= base_url('adm_lap_katalog')?>" target="_blank">
+                    <i class="fas fa-plus-circle"></i> Cetak Laporan Pustaka</a>
             </div>
         </div>
         <div class="table-responsive table-responsive-data2">
@@ -31,7 +34,7 @@
                         </td>
                         <td>
                             <span class="<?php if($data['akses']==='usr'){echo 'role user';}else{echo 'role admin';} ?>">
-                              <?php if($data['akses']==='usr'){echo 'User';}else{echo 'Pustakawan';} ?></span>
+                              <?php if($data['akses']==='usr'){echo 'Peserta Didik';}else{echo 'Pustakawan';} ?></span>
                         </td>
                         <td><?= $data['tgl_akses']; ?></td>
                     </tr>

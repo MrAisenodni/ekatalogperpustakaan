@@ -3,15 +3,22 @@
 <div class="row">
     <div class="col-md-12">
         <!-- DATA TABLE -->
-        <h3 class="title-5 m-b-35">KATALOG</h3>
+        <h3 class="title-5 m-b-35">KELOLA PUSTAKA</h3>
         <div class="table-data__tool">
             <div class="table-data__tool-right">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fas fa-plus-circle"></i> Tambah Buku</button>
+                    <i class="fas fa-plus-circle"></i> Tambah Pustaka</button>
             </div>
-            <a class="btn btn-primary" href="<?= base_url('adm_lap_katalog')?>" target="_blank">
-                    <i class="fas fa-plus-circle"></i> Cetak Laporan Katalog</a>
-            </div>
+        </div>
+        <div class="col-md-13">
+          <?php if(session()->getFlashdata('pesan')) : ?>
+          <div class="alert alert-success alert-dismissable fade show" role="alert">
+            <?= session()->getFlashdata('pesan'); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <?php endif; ?>
         </div>
         <div class="table-responsive table-responsive-data2">
             <table class="table table-data2">
@@ -22,7 +29,7 @@
                       <th>Pengarang</th>
                       <th>Penerbit</th>
                       <th>Tahun</th>
-                      <th>Lokasi</th>
+                      <th>Lokasi Rak</th>
                       <th>Aksi</th>
                     </tr>
                 </thead>
@@ -46,9 +53,13 @@
                                 <a href="<?= base_url('adm/ubahbuku/form/'.$data['kd_buku']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="zmdi zmdi-edit"></i>
                                 </a>
-                                <a href="<?= base_url('adm/hapusbuku/'.$data['kd_buku']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                <form action="adm/<?= $data['kd_buku']; ?>" method="post" class="item">
+                                  <?= csrf_field(); ?>
+                                  <input type="hidden" name="_method" value="DELETE">
+                                  <button name="hapus" class="item" title="Hapus">
                                     <i class="zmdi zmdi-delete"></i>
-                                </a>
+                                  </button>
+                                </form>  
                                 <a href="detail-katalog.php" class="item" data-toggle="tooltip" data-placement="top" title="More">
                                     <i class="zmdi zmdi-more"></i>
                                 </a>
@@ -70,7 +81,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Katalog Buku</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Pustaka</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -106,7 +117,7 @@
                 <input type="number" class="form-control" id="exampleInputPassword1" name="halaman">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Lokasi</label>
+                <label for="exampleInputPassword1">Lokasi Rak</label>
                 <select name="rak" class="form-control">
                   <option>--Pilih Rak--</option>
                   <?php
@@ -118,7 +129,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            <i class="fas fa-times"></i> Close
+            <i class="fas fa-times"></i> Tutup
         </button>
         <button type="submit" class="btn btn-primary">
             <i class="fas fa-check-circle"></i> Simpan

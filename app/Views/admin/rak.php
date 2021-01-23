@@ -3,12 +3,22 @@
 <div class="row">
     <div class="col-md-12">
         <!-- DATA TABLE -->
-        <h3 class="title-5 m-b-35">RAK</h3>
+        <h3 class="title-5 m-b-35">KELOLA RAK</h3>
         <div class="table-data__tool">
             <div class="table-data__tool-right">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     <i class="fas fa-plus-circle"></i> Tambah Rak</button>
             </div>
+        </div>
+        <div class="col-md-13">
+          <?php if(session()->getFlashdata('pesan')) : ?>
+          <div class="alert <?= ($validation->hasError('nama')) ? 'alert-danger' : ''; ?> alert-dismissable fade show" role="alert">
+            <?= session()->getFlashdata('pesan'); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <?php endif; ?>
         </div>
         <div class="table-responsive table-responsive-data2">
             <table class="table table-data2">
@@ -43,9 +53,13 @@
                                 <a href="<?= base_url('adm/ubahbuku/form/'.$data['kd_rak']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="zmdi zmdi-edit"></i>
                                 </a>
-                                <a href="<?= base_url('adm/hapusbuku/'.$data['kd_rak']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                <form action="adm/<?= $data['kd_rak']; ?>" method="post" class="item">
+                                  <?= csrf_field(); ?>
+                                  <input type="hidden" name="_method" value="DELETE">
+                                  <button name="hapus" class="item" title="Hapus" onclick="return confirm('Apakah Anda Yakin?');">
                                     <i class="zmdi zmdi-delete"></i>
-                                </a>
+                                  </button>
+                                </form>
                                 <a href="detail-katalog.php" class="item" data-toggle="tooltip" data-placement="top" title="More">
                                     <i class="zmdi zmdi-more"></i>
                                 </a>
@@ -67,7 +81,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Katalog Buku</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Pustaka</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -101,7 +115,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            <i class="fas fa-times"></i> Close
+            <i class="fas fa-times"></i> Tutup
         </button>
         <button type="submit" class="btn btn-primary">
             <i class="fas fa-check-circle"></i> Simpan

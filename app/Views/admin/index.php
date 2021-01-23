@@ -17,7 +17,7 @@
                     </div>
                     <div class="text">
                         <h2><?= $numusr; ?></h2>
-                        <span>User Terdaftar</span>
+                        <span>Pengguna Terdaftar</span>
                     </div>
                 </div>
                 <div class="overview-chart">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="text">
                         <h2><?= $numpus; ?></h2>
-                        <span>Katalog</span>
+                        <span>Pustaka Terdaftar</span>
                     </div>
                 </div>
                 <div class="overview-chart">

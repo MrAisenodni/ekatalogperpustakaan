@@ -38,7 +38,7 @@
             <td><?= $data['tgl_daftar']; ?></td>
             <td>
 
-                    <a href="<?= base_url('user/ubah/form/'.$data['nis']); ?>">Edit</a>
+                    <a href="<?= base_url('user/ubah/form/'.$data['nis']); ?>">Ubah</a>
                     <a href="<?= base_url('user/hapus/'.$data['nis']); ?>">Hapus</a>
 
             </td>

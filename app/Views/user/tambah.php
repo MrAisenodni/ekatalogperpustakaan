@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tambah User</title>
+    <title>Tambah Pengguna</title>
 </head>
 <body>
   <form action="<?=base_url('user/tambah/submit'); ?>" method="post">
@@ -16,9 +16,9 @@
   <label>Tanggal Lahir : </label><input type="date" name="tgllahir"><br>
   <label>No. Telp : </label><input type="text" name="telp"  placeholder="No. Telp"><br>
   <label>Akses : </label>
-  <input type="radio" name="akses" value="usr">User
+  <input type="radio" name="akses" value="usr">Peserta Didik
   <input type="radio" name="akses" value="pus">Pustakawan<br>
-  <button type="submit" name="button">Tambah</button><a href="<?= base_url('user'); ?>">Back</a>
+  <button type="submit" name="button">Tambah</button><a href="<?= base_url('user'); ?>">Kembali</a>
   </form>
 </body>
 </html>

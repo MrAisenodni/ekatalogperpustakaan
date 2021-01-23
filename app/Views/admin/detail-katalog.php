@@ -3,8 +3,8 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
-                <strong>Katalog</strong>
-                <small> Edit</small>
+                <strong>Pustaka</strong>
+                <small> Ubah</small>
             </div>
             <div class="card-body card-block">
                 <form>
@@ -33,7 +33,7 @@
                         <input type="text" class="form-control" id="exampleInputPassword1" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Lokasi</label>
+                        <label for="exampleInputPassword1">Tempat Terbit</label>
                         <input type="text" class="form-control" id="exampleInputPassword1" disabled>
                     </div>
                 </form>

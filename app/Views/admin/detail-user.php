@@ -1,10 +1,11 @@
-<?php require_once("src/header.php"); ?>
+<?= $this->include('admin/layout/header') ?>
+
 <div class="row">
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
-                <strong>Katalog</strong>
-                <small> Edit</small>
+                <strong>Detail Pengguna</strong>
+                <!-- <small> Ubah</small> -->
             </div>
             <div class="card-body card-block">
                 <form>
@@ -32,18 +33,18 @@
                         <input type="date" class="form-control" id="exampleInputPassword1" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Nomor Telepon</label>
+                        <label for="exampleInputPassword1">Nomor HP</label>
                         <input type="text" class="form-control" id="exampleInputPassword1" disabled>
                     </div>
                     <div class="form-group">
                      <label for="exampleInputPassword1">Akses</label><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="akses" id="inlineRadio1" value="option1" disabled>
-                            <label class="form-check-label" for="inlineRadio1">Admin</label>
+                            <label class="form-check-label" for="inlineRadio1">Pustakawan</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="akses" id="inlineRadio2" value="option2" disabled>
-                            <label class="form-check-label" for="inlineRadio2">User</label>
+                            <label class="form-check-label" for="inlineRadio2">Peserta Didik</label>
                         </div>
                     </div>
                 </form>
@@ -62,4 +63,4 @@
         </div>
     </div>
 </div>
-<?php require_once("src/footer.php"); ?>
+<?= $this->include('admin/layout/footer') ?>

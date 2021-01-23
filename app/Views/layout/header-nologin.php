@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>E-Katalog Perpustakaan - SMA 6 Bekasi</title>
+  <title>Sistem Informasi Perpustakaan - SMA 6 Bekasi</title>
 
   <!-- Bootstrap core CSS -->
   <link href="user/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
