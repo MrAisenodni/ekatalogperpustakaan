@@ -25,6 +25,12 @@ class PustakaModel extends Model
                         ->getResultArray();
         }
     }
+    public function getPustakaKode($kd_buku) {
+        return $this->table('buku')
+                    ->where('kd_buku',$kd_buku)
+                    ->get()
+                    ->getRowArray();
+    }
     public function getSearch($kd = false)
     {
       if($kd === false){

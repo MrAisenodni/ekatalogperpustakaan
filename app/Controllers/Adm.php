@@ -37,11 +37,22 @@ class Adm extends Controller{
 	{
 		$drak = $this->rak->getRak();
 		$data = [
-			'title' 	=> 'Kelola Rak',
+			'title' 	=> 'Kelola Rak/Denah',
 			'rak' 		=> $drak,
 			'user' 		=> $this->session->get(),
 		];
 		return view('admin/rak', $data);
+	}
+
+	public function detailubahrak($kd_rak)
+	{
+		$all = $this->user->getRakKode($kd_rak);
+		$data = [
+			'title' => 'Ubah Rak/Denah',
+			'drak' 	=> $all,
+			'rak'	=> $this->session->get(),
+		];
+		return view('admin/edit-rak', $data);
 	}
 
 	public function tambahrak(){
@@ -158,16 +169,12 @@ class Adm extends Controller{
 	    }
     }
 
-    public function hapusrak($kd){
-      // Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
-	    $hapus = $this->rak->HapusRak($kd);
-
-	    // Jika berhasil melakukan hapus
-	    if($hapus)
-	    {
-	        return redirect()->to(base_url('adm_rak'));
-	    }
-    }
+    public function hapusrak($kd_rak){
+		// Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
+		$this->rak->HapusRak($kd_rak);
+		session()->setFlashdata('pesan','Data Rak Berhasil Dihapus');
+		return redirect()->to(base_url('adm_rak'));
+	}
     // END CRUD Rak
 
 	// START CRUD PUSTAKA
@@ -182,6 +189,18 @@ class Adm extends Controller{
 			'user' 		=> $this->session->get(),
 		];
 		return view('admin/katalog', $data);
+	}
+	public function detailubahbuku($kd_buku)
+	{
+		$all = $this->user->getPustakaKode($kd_buku);
+		$drak = $this->rak->getRak();
+		$data = [
+			'title' 	=> 'Ubah Pustaka',
+			'pustaka' 	=> $all,
+			'rak' 		=> $drak,
+			'rak'		=> $this->session->get(),
+		];
+		return view('admin/edit-katalog', $data);
 	}
 
 	public function tambahbuku(){

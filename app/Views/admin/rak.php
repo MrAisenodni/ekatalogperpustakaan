@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-13">
           <?php if(session()->getFlashdata('pesan')) : ?>
-          <div class="alert <?= ($validation->hasError('nama')) ? 'alert-danger' : ''; ?> alert-dismissable fade show" role="alert">
+          <div class="alert alert-success alert-dismissable fade show" role="alert">
             <?= session()->getFlashdata('pesan'); ?>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -50,7 +50,7 @@
                         </td>
                         <td>
                             <div class="table-data-feature">
-                                <a href="<?= base_url('adm/ubahbuku/form/'.$data['kd_rak']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <a href="adm/detailubahrak/<?= $data['kd_rak']; ?>" class="item" data-toggle="tooltip" data-placement="top" title="Ubah">
                                     <i class="zmdi zmdi-edit"></i>
                                 </a>
                                 <form action="adm/<?= $data['kd_rak']; ?>" method="post" class="item">
@@ -88,34 +88,31 @@
       </div>
       <div class="modal-body">
         <form action="<?=base_url('adm/tambahrak'); ?>" method="post" enctype="multipart/form-data">
-            <!-- <div class="form-group">
-                <label for="exampleInputEmail1">Kode Buku</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div> -->
-            <div class="form-group">
-                <label for="exampleInputPassword1">Nama</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="nama">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">No. Lemari</label>
-                <input type="number" class="form-control" id="exampleInputPassword1" name="nolem">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">No. Rak</label>
-                <input type="number" class="form-control" id="exampleInputPassword1" name="norak">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Jenis</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="jenis">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Lokasi</label>
-                <input type="file" class="form-control" id="exampleInputPassword1" name="gmb">
-            </div>
+          <?= csrf_field(); ?>
+          <div class="form-group">
+              <label for="exampleInputPassword1">Nama</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" name="nama">
+          </div>
+          <div class="form-group">
+              <label for="exampleInputPassword1">No. Lemari</label>
+              <input type="number" class="form-control" id="exampleInputPassword1" name="nolem">
+          </div>
+          <div class="form-group">
+              <label for="exampleInputPassword1">No. Rak</label>
+              <input type="number" class="form-control" id="exampleInputPassword1" name="norak">
+          </div>
+          <div class="form-group">
+              <label for="exampleInputPassword1">Jenis</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" name="jenis">
+          </div>
+          <div class="form-group">
+              <label for="exampleInputPassword1">Lokasi</label>
+              <input type="file" class="form-control" id="exampleInputPassword1" name="gmb">
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            <i class="fas fa-times"></i> Tutup
+            <i class="fas fa-times"></i> Batal
         </button>
         <button type="submit" class="btn btn-primary">
             <i class="fas fa-check-circle"></i> Simpan

@@ -22,6 +22,12 @@ class RakModel extends Model
                         ->getResultArray();
         }
     }
+    public function getRakKode($kd_rak) {
+        return $this->table('rak')
+                    ->where('kd_rak',$kd_rak)
+                    ->get()
+                    ->getRowArray();
+    }
     function KodeRak(){
         return $this->table('rak')
                     ->select('kd_rak')

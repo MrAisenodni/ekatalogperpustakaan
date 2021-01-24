@@ -50,13 +50,13 @@
                         <td><?= $data['nama']; ?></td>
                         <td>
                             <div class="table-data-feature">
-                                <a href="<?= base_url('adm/ubahbuku/form/'.$data['kd_buku']); ?>" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <a href="adm/detailubahbuku/<?= $data['kd_buku']; ?>" class="item" data-toggle="tooltip" data-placement="top" title="Ubah">
                                     <i class="zmdi zmdi-edit"></i>
                                 </a>
                                 <form action="adm/<?= $data['kd_buku']; ?>" method="post" class="item">
                                   <?= csrf_field(); ?>
                                   <input type="hidden" name="_method" value="DELETE">
-                                  <button name="hapus" class="item" title="Hapus">
+                                  <button name="hapus" class="item" title="Hapus" onclick="return confirm('Apakah Anda Yakin?');">
                                     <i class="zmdi zmdi-delete"></i>
                                   </button>
                                 </form>  
@@ -88,44 +88,40 @@
       </div>
       <div class="modal-body">
         <form action="<?=base_url('adm/tambahbuku'); ?>" method="post">
-            <!-- <div class="form-group">
-                <label for="exampleInputEmail1">Kode Buku</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div> -->
-            <div class="form-group">
-                <label for="exampleInputPassword1">Judul</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="judul">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Pengarang</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="pengarang">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Tempat Terbit</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="tmpt">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Penerbit</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="penerbit">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Tahun</label>
-                <input type="year" class="form-control" id="exampleInputPassword1" name="tahun">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Jumlah Halaman</label>
-                <input type="number" class="form-control" id="exampleInputPassword1" name="halaman">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Lokasi Rak</label>
-                <select name="rak" class="form-control">
-                  <option>--Pilih Rak--</option>
-                  <?php
-                  foreach($rak as $key => $data1){?>
-                    <option value="<?= $data1['kd_rak']; ?>"><?= $data1['nama']; ?></option>
-                  <?php } ?>
-                </select>
-            </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Judul</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="judul">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Pengarang</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="pengarang">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Tempat Terbit</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="tmpt">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Penerbit</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="penerbit">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Tahun</label>
+            <input type="year" class="form-control" id="exampleInputPassword1" name="tahun">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Jumlah Halaman</label>
+            <input type="number" class="form-control" id="exampleInputPassword1" name="halaman">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Lokasi Rak</label>
+            <select name="rak" class="form-control">
+              <option>--Pilih Rak--</option>
+              <?php
+              foreach($rak as $key => $data1){?>
+                <option value="<?= $data1['kd_rak']; ?>"><?= $data1['nama']; ?></option>
+              <?php } ?>
+            </select>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">

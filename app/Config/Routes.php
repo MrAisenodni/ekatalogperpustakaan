@@ -42,10 +42,14 @@ $routes->get('logout', 'Auth::logout');
 
 $routes->get('adm', 'Adm::index', ['filter' => 'auth']);
 $routes->get('adm_katalog', 'Adm::katalog', ['filter' => 'auth']);
+$routes->get('/adm/ubahbuku/(:$alphanum)', 'Adm::detailubahbuku/$1');
+$routes->delete('/adm/(:alphanum)', 'Adm::hapusbuku/$1');
 $routes->get('adm_lap_katalog', 'Adm::cetakkatalog', ['filter' => 'auth']);
 
 
 $routes->get('adm_rak', 'Adm::rak', ['filter' => 'auth']);
+$routes->get('/adm/ubahrak/(:$alphanum)', 'Adm::detailubahrak/$1');
+$routes->delete('/adm/(:alphanum)', 'Adm::hapusrak/$1');
 
 $routes->get('adm_user', 'Adm::user', ['filter' => 'auth']);
 $routes->get('/adm/ubahuser/(:$alphanum)', 'Adm::detailubahuser/$1');

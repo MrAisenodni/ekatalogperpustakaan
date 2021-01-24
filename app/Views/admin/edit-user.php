@@ -16,6 +16,7 @@
                   <?php endif; ?>
                 </div>
                 <form action="<?= base_url('/adm/ubahuser/'.$usr['kd_user']); ?>" method="post">
+                    <?= csrf_field(); ?>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Akses</label><br>
                         <div class="form-check form-check-inline">
