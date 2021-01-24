@@ -105,52 +105,54 @@ class Adm extends Controller{
 	public function detailubahrak($kd_rak)
 	{
 		$all = $this->rak->getRakKode($kd_rak);
+		$gambar = $this->request->getFile('gmb');
 		$data = [
 			'title' => 'Ubah Rak/Denah',
 			'drak' 	=> $all,
+			'gmb' 	=> $gambar,
 			'user'	=> $this->session->get(),
 		];
 		return view('admin/edit-rak', $data);
 	}
 
-	public function ubahrak($stat,$kd){
-    	if($stat=='submit'){
-	        // Mengambil value dari form dengan method POST
-	        $jdl = $this->request->getPost('judul');
-	        $peng = $this->request->getPost('pengarang');
-	        $edit = $this->request->getPost('editor');
-	        $terbit = $this->request->getPost('penerbit');
-	        $thn = $this->request->getPost('tahun');
-	        $hal = $this->request->getPost('halaman');
-	        $loc = $this->request->getPost('lokasi');
+	public function ubahrak($kd_rak){
+        // Mengambil value dari form dengan method POST
+        $nama = $this->request->getPost('nama');
+		$lemari = $this->request->getPost('nolem');
+		$rak = $this->request->getPost('norak');
+        $jenis = $this->request->getPost('jenis');
+        $gambar = $this->request->getFile('gmb');
 
-	        // Membuat array collection yang disiapkan untuk insert ke table
-	        $data = [
-		        'judul' 	=> $jdl,
-		        'pengarang' => $peng,
-		        'editor' 	=> $edit,
-		        'penerbit' 	=> $terbit,
-		        'tahun' 	=> $thn,
-		        'halaman' 	=> $hal,
-	         	'lokasi' 	=> $loc
-	        ];
+        // Cek gambar lama atau baru
+        if($gambar->getError() == 4){
+        	$gmb = $this->request->getVar('gambarLama');
+        }
 
-	        /*
-	        Membuat variabel ubah yang isinya merupakan memanggil function
-	        update_product dan membawa parameter data beserta id
-	        */
-	        $ubah = $this->pustaka->UbahBuku($data, $kd);
+    	// Membuat array collection yang disiapkan untuk insert ke table
+        $data = [
+			'kd_rak' 	=> $kd_rak,
+        	'nama' 		=> $nama,
+			'no_lemari' => $lemari,
+			'no_rak' 	=> $rak,
+        	'jenis' 	=> $jenis,
+        	'gambar' 	=> $gambar->getName(),
+      	];
 
-	        // Jika berhasil melakukan ubah
-	        if(!$ubah)
-	        {
-		        return redirect()->to(base_url('adm_katalog'));
-	        }else{
-		        return redirect()->to(base_url('adm_katalog'));
-	        }
+    	/*
+    	Membuat variabel simpan yang isinya merupakan memanggil function
+    	insert_product dan membawa parameter data
+    	*/
+
+		$simpan = $this->rak->UbahRak($data,$kd_rak);
+		$gambar->move('gmb');
+
+		// Jika simpan berhasil, maka ...
+        if(!$simpan){
+	      	session()->setFlashdata('pesan', 'Data Rak Berhasil Diubah.');
+		    return redirect()->to(base_url('adm_rak'));
 	    }else{
-	        $data['pustaka'] = $this->pustaka->getPustaka($kd);
-	        return view('adm/ubah', $data);
+	    	session()->setFlashdata('error', 'Data Rak Gagal Diubah.');
+			return redirect()->to(base_url('adm_rak'));
 	    }
     }
 

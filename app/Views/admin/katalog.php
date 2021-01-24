@@ -123,9 +123,8 @@
             <label for="exampleInputPassword1">Lokasi Rak</label>
             <select name="rak" class="form-control">
               <option>--Pilih Rak--</option>
-              <?php
-              foreach($rak as $key => $data1){?>
-                <option value="<?= $data1['kd_rak']; ?>"><?= $data1['nama']; ?></option>
+              <?php foreach($rak as $key => $data1){?>
+                <option value="<?= $data1['kd_rak']; ?>"><?php echo $data1['nama']." -- No Lemari (".$data1['no_lemari'].") -- No Rak (".$data1['no_rak'].")"; ?></option>
               <?php } ?>
             </select>
           </div>

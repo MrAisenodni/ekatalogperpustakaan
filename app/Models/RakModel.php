@@ -10,7 +10,8 @@ class RakModel extends Model
     {
         if($term === false){
             return $this->table('rak')
-                        ->orderBy('kd_rak','ASC')
+                        ->orderBy('no_lemari','ASC')
+                        ->orderBy('no_rak','ASC')
                         ->get()
                         ->getResultArray();
         } else {
@@ -43,17 +44,17 @@ class RakModel extends Model
                       ->insert($data);
         return $query;
     }
-    function HapusRak($kd){
+    function HapusRak($kd_rak){
         $query = $this->table('rak')
-                      ->where('kd_rak',$kd)
+                      ->where('kd_rak',$kd_rak)
                       ->delete();
         return $query;
     }
-    function UbahRak($data,$kd){
+    function UbahRak($data,$kd_rak){
         $query = $this->protect(false)
                       ->table('rak')
                       ->set($data)
-                      ->where('kd_rak',$kd)
+                      ->where('kd_rak',$kd_rak)
                       ->update();
         return $query;
     }

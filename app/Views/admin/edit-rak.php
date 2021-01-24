@@ -17,30 +17,30 @@
                 </div>
                 <form action="<?= base_url('/adm/ubahrak/'.$drak['kd_rak']); ?>" method="post" enctype="multipart/form-data">
                     <?= csrf_field(); ?>
-                    <input type="hidden" name="gambarLama" value="<?= $drak['gambar']; ?>">
+                    <input type="hidden" name="gambarLama" value="<?= $gmb['gambar']; ?>">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Nama</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="nama" value="<?= $drak['nama']; ?>">
+                        <label for="exampleInputPassword1">Nama Lemari</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="jenis" value="<?= $drak['jenis']; ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">No. Lemari</label>
-                        <input type="number" class="form-control" id="exampleInputPassword1" name="nolem" value="<?= $drak['no_lemari']; ?>">
+                        <input type="number" class="form-control" id="exampleInputPassword1" name="nolem" value="<?= $drak['no_lemari']; ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Nama Rak</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="nama" value="<?= $drak['nama']; ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">No. Rak</label>
-                        <input type="number" class="form-control" id="exampleInputPassword1" name="norak" value="<?= $drak['no_rak']; ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Jenis</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="jenis" value="<?= $drak['jenis']; ?>">
+                        <input type="number" class="form-control" id="exampleInputPassword1" name="norak" value="<?= $drak['no_rak']; ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Lokasi</label>
-                        <input type="file" class="form-control" id="exampleInputPassword1" name="gmb" placeholder="<?= $drak['gambar'] ?>">
+                        <input type="file" class="form-control" id="exampleInputPassword1" name="gmb" required>
                     </div>
                     <div class="modal-footer">
                         <a href="<?= base_url('adm_rak'); ?>">
-                            <button type="submit" class="btn btn-danger">
+                            <button type="button" class="btn btn-danger">
                                 <i class="fas fa-times"></i> Batal
                             </button>
                         </a>

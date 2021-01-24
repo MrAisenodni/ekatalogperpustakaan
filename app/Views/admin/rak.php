@@ -32,11 +32,10 @@
                 <thead>
                     <tr>
                       <th>No</th>
-                      <th>Kode Rak</th>
-                      <th>Nama</th>
-                      <th>No. Lemari</th>
-                      <th>No. Rak</th>
-                      <th>Jenis</th>
+                      <th>Nama Lemari</th>
+                      <th>No Lemari</th>
+                      <th>Nama Rak</th>
+                      <th>No Rak</th>
                       <th>Aksi</th>
                     </tr>
                 </thead>
@@ -47,14 +46,11 @@
                     <tr class="tr-shadow">
                         <td><?= $no; ?></td>
                         <td>
-                            <?= $data['kd_rak']; ?>
-                        </td>
-                        <td class="desc"><?= $data['nama']; ?></td>
-                        <td class="desc"><?= $data['no_lemari']; ?></td>
-                        <td class="desc"><?= $data['no_rak']; ?></td>
-                        <td>
                             <span class="status--process"><?= $data['jenis']; ?></span>
                         </td>
+                        <td class="desc"><?= $data['no_lemari']; ?></td>
+                        <td class="desc"><?= $data['nama']; ?></td>
+                        <td class="desc"><?= $data['no_rak']; ?></td>
                         <td>
                             <div class="table-data-feature">
                                 <a href="adm/detailubahrak/<?= $data['kd_rak']; ?>" class="item" data-toggle="tooltip" data-placement="top" title="Ubah">
@@ -97,20 +93,20 @@
         <form action="<?=base_url('adm/tambahrak'); ?>" method="post" enctype="multipart/form-data" id="form">
           <?= csrf_field(); ?>
           <div class="form-group">
-              <label for="exampleInputPassword1">Nama</label>
-              <input type="text" class="form-control error" id="nama" name="nama" required>
+              <label for="exampleInputPassword1">Nama Lemari</label>
+              <input type="text" class="form-control" id="jenis" name="jenis" required>
           </div>
           <div class="form-group">
               <label for="exampleInputPassword1">No. Lemari</label>
               <input type="number" class="form-control" id="nolem" name="nolem" required>
           </div>
           <div class="form-group">
-              <label for="exampleInputPassword1">No. Rak</label>
-              <input type="number" class="form-control" id="norak" name="norak" required>
+              <label for="exampleInputPassword1">Nama Rak</label>
+              <input type="text" class="form-control error" id="nama" name="nama" required>
           </div>
           <div class="form-group">
-              <label for="exampleInputPassword1">Jenis</label>
-              <input type="text" class="form-control" id="jenis" name="jenis" required>
+              <label for="exampleInputPassword1">No. Rak</label>
+              <input type="number" class="form-control" id="norak" name="norak" required>
           </div>
           <div class="form-group">
               <label for="exampleInputPassword1">Lokasi</label>
@@ -131,41 +127,41 @@
 </div>
 
 <script>
-      const submit = document.getElementById('submit');
-      const nama = document.getElementById('nama');
-      const nolek = document.getElementById('nolek');
-      const norak = document.getElementById('norak');
-      const jenis = document.getElementById('jenis');
-      const gmb = document.getElementById('gmb');
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        cekData();
-      });
+  // const submit = document.getElementById('submit');
+  // const nama = document.getElementById('nama');
+  // const nolek = document.getElementById('nolek');
+  // const norak = document.getElementById('norak');
+  // const jenis = document.getElementById('jenis');
+  // const gmb = document.getElementById('gmb');
+  // form.addEventListener('submit', (e) => {
+  //   e.preventDefault();
+  //   cekData();
+  // });
 
-      function cekData() {
-        const namaValue = nama.value.trim();
-        const nolekValue = nolek.value.trim();
-        const norakValue = norak.value.trim();
-        const jenisValue = jenis.value.trim();
-        const gmbValue = gmb.value.trim();
+  // function cekData() {
+  //   const namaValue = nama.value.trim();
+  //   const nolekValue = nolek.value.trim();
+  //   const norakValue = norak.value.trim();
+  //   const jenisValue = jenis.value.trim();
+  //   const gmbValue = gmb.value.trim();
 
-        if(namaValue === '') {
-          // Tampilkan kolom salah dan pesan kesalahan
-          setErrorFor(username, 'Nama rak tidak boleh kosong!');
-        } else {
-          // Tampilkan kolom benar
-          setSuccessFor(username);
-        }
-      }
+  //   if(namaValue === '') {
+  //     // Tampilkan kolom salah dan pesan kesalahan
+  //     setErrorFor(username, 'Nama rak tidak boleh kosong!');
+  //   } else {
+  //     // Tampilkan kolom benar
+  //     setSuccessFor(username);
+  //   }
+  // }
 
-      function setErrorFor(input, pesan) {
-        const formControl = input.parentElement;
-        const small = formControl.querySelector('small');
+  // function setErrorFor(input, pesan) {
+  //   const formControl = input.parentElement;
+  //   const small = formControl.querySelector('small');
 
-        // Tampilkan pesan error didalam small
-        small.innerText = pesan;
+  //   // Tampilkan pesan error didalam small
+  //   small.innerText = pesan;
 
-        // Tambah kelas error
-        formControl.className = 'form-control error';
-      }
-    </script>
+  //   // Tambah kelas error
+  //   formControl.className = 'form-control error';
+  // }
+</script>
