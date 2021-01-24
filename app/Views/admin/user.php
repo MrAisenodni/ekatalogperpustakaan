@@ -18,6 +18,13 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <?php elseif(session()->getFlashdata('error')): ?>
+          <div class="alert alert-danger alert-dismissable fade show" role="alert">
+            <?= session()->getFlashdata('error'); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
           <?php endif; ?>
         </div>
         <div class="table-responsive table-responsive-data2">
@@ -52,7 +59,7 @@
                                 <a href="adm/detailubahuser/<?= $data['kd_user']; ?>" class="item" data-toggle="tooltip" data-placement="top" title="Ubah">
                                     <i class="zmdi zmdi-edit"></i>
                                 </a>
-                                <form action="adm/<?= $data['kd_user']; ?>" method="post" class="item">
+                                <form action="adm/hapususer/<?= $data['kd_user']; ?>" method="post" class="item">
                                   <?= csrf_field(); ?>
                                   <input type="hidden" name="_method" value="DELETE">
                                   <button name="hapus" class="item" title="Hapus" onclick="return confirm('Apakah Anda Yakin?');">
@@ -108,7 +115,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Nama</label>
-                <input type="text" name="nama" class="form-control" id="exampleInputPassword1">
+                <input type="text" name="nama" class="form-control" id="exampleInputPassword1" required>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Jenis Kelamin</label><br>
@@ -127,11 +134,11 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Nomor HP</label>
-                <input type="text" name="telp" class="form-control" id="exampleInputPassword1">
+                <input type="text" name="telp" class="form-control" id="exampleInputPassword1" required>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" name="pass" class="form-control" id="exampleInputPassword1">
+                <input type="password" name="pass" class="form-control" id="exampleInputPassword1" required>
             </div>
       </div>
       <div class="modal-footer">
@@ -150,17 +157,11 @@
   function disNIS(){
     var nis = document.getElementById('nis').disabled = true;
     var nik = document.getElementById('nik').disabled = false;
+    nik = document.getElementById('nik').required = true;
   }
   function disNIK(){
     var nik = document.getElementById('nik').disabled = true;
     var nis = document.getElementById('nis').disabled = false;
+    nis = document.getElementById('nis').required = true;
   }
-  // function Akses(){
-  //   var pus = document.getElementById('pus');
-  //   var usr = document.getElementById('usr');
-  //   var nis = document.getElementById('nis');
-  //   var nik = document.getElementById('nik');
-  //
-  //   if()
-  // }
 </script>

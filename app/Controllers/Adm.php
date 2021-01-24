@@ -44,17 +44,6 @@ class Adm extends Controller{
 		return view('admin/rak', $data);
 	}
 
-	public function detailubahrak($kd_rak)
-	{
-		$all = $this->user->getRakKode($kd_rak);
-		$data = [
-			'title' => 'Ubah Rak/Denah',
-			'drak' 	=> $all,
-			'rak'	=> $this->session->get(),
-		];
-		return view('admin/edit-rak', $data);
-	}
-
 	public function tambahrak(){
 		$data = $this->rak->KodeRak();
 		$kd = "";
@@ -100,33 +89,29 @@ class Adm extends Controller{
     	insert_product dan membawa parameter data
     	*/
 
-		// Validasi kelengkapan data
-		$validation = \Config\Services::validation();
+		$simpan = $this->rak->TambahRak($data);
+		$gambar->move(ROOTPATH.'public/gmb');
 
-		if(!$this->validate([
-			'nama' 	=> 'required',
-			'nolem' => 'required',
-			'norak' => 'required',
-			'jenis' => 'required',
-			'gmb'	=> 'required'
-		])) {
-			// Cek kelengkapan data
-			session()->setFlashdata('pesan', 'Data Belum Lengkap.');
+		// Jika simpan berhasil, maka ...
+        if(!$simpan){
+	      	session()->setFlashdata('pesan', 'Data Rak Berhasil Ditambahkan.');
+		    return redirect()->to(base_url('adm_rak'));
+	    }else{
+	    	session()->setFlashdata('error', 'Data Rak Gagal Ditambahkan.');
 			return redirect()->to(base_url('adm_rak'));
-		}else{
-			$simpan = $this->rak->TambahRak($data);
-			$gambar->move(ROOTPATH.'public/gmb');
-
-			// Jika simpan berhasil, maka ...
-	        if(!$simpan){
-		      	session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan.');
-			    return redirect()->to(base_url('adm_rak'));
-		    }else{
-		    	session()->setFlashdata('pesan', 'Data Gagal Ditambahkan.');
-				return redirect()->to(base_url('adm_rak'));
-		    }
-		}
+	    }
     }
+
+	public function detailubahrak($kd_rak)
+	{
+		$all = $this->user->getRakKode($kd_rak);
+		$data = [
+			'title' => 'Ubah Rak/Denah',
+			'drak' 	=> $all,
+			'rak'	=> $this->session->get(),
+		];
+		return view('admin/edit-rak', $data);
+	}
 
 	public function ubahrak($stat,$kd){
     	if($stat=='submit'){
@@ -190,18 +175,6 @@ class Adm extends Controller{
 		];
 		return view('admin/katalog', $data);
 	}
-	public function detailubahbuku($kd_buku)
-	{
-		$all = $this->user->getPustakaKode($kd_buku);
-		$drak = $this->rak->getRak();
-		$data = [
-			'title' 	=> 'Ubah Pustaka',
-			'pustaka' 	=> $all,
-			'rak' 		=> $drak,
-			'rak'		=> $this->session->get(),
-		];
-		return view('admin/edit-katalog', $data);
-	}
 
 	public function tambahbuku(){
 		$data = $this->pustaka->KodeBuku();
@@ -251,17 +224,31 @@ class Adm extends Controller{
 		Membuat variabel simpan yang isinya merupakan memanggil function
 		insert_product dan membawa parameter data
 		*/
+
 		$simpan = $this->pustaka->TambahBuku($data);
 
 		// Jika simpan berhasil, maka ...
-		if(!$simpan){
-			session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan.');
+        if(!$simpan){
+	      	session()->setFlashdata('pesan', 'Data Pustaka Berhasil Ditambahkan.');
+		    return redirect()->to(base_url('adm_katalog'));
+	    }else{
+	    	session()->setFlashdata('error', 'Data Pustaka Gagal Ditambahkan.');
 			return redirect()->to(base_url('adm_katalog'));
-		}else{
-			session()->setFlashdata('pesan', 'Data Gagal Ditambahkan.');
-			return redirect()->to(base_url('adm_katalog'));
-		}
+	    }
     }
+
+	public function detailubahbuku($kd_buku)
+	{
+		$all = $this->user->getPustakaKode($kd_buku);
+		$drak = $this->rak->getRak();
+		$data = [
+			'title' 	=> 'Ubah Pustaka',
+			'pustaka' 	=> $all,
+			'rak' 		=> $drak,
+			'rak'		=> $this->session->get(),
+		];
+		return view('admin/edit-katalog', $data);
+	}
 
 	public function ubahbuku($stat,$kd){
 		if($stat=='submit'){
@@ -303,15 +290,11 @@ class Adm extends Controller{
 		}
 	}
 
-    public function hapusbuku($kd){
+    public function hapusbuku($kd_buku){
 	    // Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
-	    $hapus = $this->pustaka->HapusBuku($kd);
-
-	    // Jika berhasil melakukan hapus
-	    if($hapus)
-	    {
-	        return redirect()->to(base_url('adm_katalog'));
-	    }
+	    $this->pustaka->HapusBuku($kd_buku);
+		session()->setFlashdata('pesan','Data Pustaka Berhasil Dihapus');
+		return redirect()->to(base_url('adm_katalog'));
     }
     // END CRUD Buku
 
@@ -387,15 +370,14 @@ class Adm extends Controller{
       	insert_product dan membawa parameter data
       	*/
 
-      	$simpan = $this->user->TambahUser($data);
+		$simpan = $this->user->TambahUser($data);
 
-	    // Validasi Penyimpanan
-      
-	    if(!$simpan){
-	      	session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan.');
+		// Jika simpan berhasil, maka ...
+        if(!$simpan){
+	      	session()->setFlashdata('pesan', 'Data Pengguna Berhasil Ditambahkan.');
 		    return redirect()->to(base_url('adm_user'));
 	    }else{
-	    	session()->setFlashdata('pesan', 'Data Gagal Ditambahkan.');
+	    	session()->setFlashdata('error', 'Data Pengguna Gagal Ditambahkan.');
 			return redirect()->to(base_url('adm_user'));
 	    }
     }
@@ -447,20 +429,20 @@ class Adm extends Controller{
 	    // Validasi Penyimpanan
       
 	    if(!$simpan){
-	      	session()->setFlashdata('pesan', 'Data Berhasil Diubah.');
+	      	session()->setFlashdata('pesan', 'Data Pengguna Berhasil Diubah.');
 		    return redirect()->to(base_url('adm_user'));
 	    }else{
-	    	session()->setFlashdata('pesan', 'Data Gagal Diubah.');
+	    	session()->setFlashdata('pesan', 'Data Pengguna Gagal Diubah.');
 			return redirect()->to(base_url('adm_user'));
 	    }
     }
 
 	public function hapususer($kd_user){
-		// Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
-		$this->user->HapusUser($kd_user);
+	    // Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
+	    $this->user->HapusUser($kd_user);
 		session()->setFlashdata('pesan','Data Pengguna Berhasil Dihapus');
 		return redirect()->to(base_url('adm_user'));
-	}
+    }
 	// END CRUD Pengguna
 
 	// START CRUD Laporan

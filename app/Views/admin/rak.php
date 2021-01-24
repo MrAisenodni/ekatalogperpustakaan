@@ -18,6 +18,13 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <?php elseif(session()->getFlashdata('error')): ?>
+          <div class="alert alert-danger alert-dismissable fade show" role="alert">
+            <?= session()->getFlashdata('error'); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
           <?php endif; ?>
         </div>
         <div class="table-responsive table-responsive-data2">
@@ -53,7 +60,7 @@
                                 <a href="adm/detailubahrak/<?= $data['kd_rak']; ?>" class="item" data-toggle="tooltip" data-placement="top" title="Ubah">
                                     <i class="zmdi zmdi-edit"></i>
                                 </a>
-                                <form action="adm/<?= $data['kd_rak']; ?>" method="post" class="item">
+                                <form action="adm/hapusrak/<?= $data['kd_rak']; ?>" method="post" class="item">
                                   <?= csrf_field(); ?>
                                   <input type="hidden" name="_method" value="DELETE">
                                   <button name="hapus" class="item" title="Hapus" onclick="return confirm('Apakah Anda Yakin?');">
@@ -107,7 +114,7 @@
           </div>
           <div class="form-group">
               <label for="exampleInputPassword1">Lokasi</label>
-              <input type="file" class="form-control" id="exampleInputPassword1" name="gmb">
+              <input type="file" class="form-control" id="gmb" name="gmb">
           </div>
       </div>
       <div class="modal-footer">
