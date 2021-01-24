@@ -97,11 +97,11 @@
           <div class="form-group">
               <label for="exampleInputPassword1">Akses</label><br>
               <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="akses" id="pus" value="pus" onclick="disNIS()">
+                  <input class="form-check-input" type="radio" name="akses" id="pus" value="pus" onclick="disNISNIK()">
                   <label class="form-check-label" for="inlineRadio1">Pustakawan</label>
               </div>
               <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="akses" id="usr" value="usr" onclick="disNIK()">
+                  <input class="form-check-input" type="radio" name="akses" id="usr" value="usr" onclick="disNISNIK()">
                   <label class="form-check-label" for="inlineRadio2">Peserta Didik</label>
               </div>
           </div>
@@ -154,14 +154,22 @@
   </div>
 </div>
 <script>
-  function disNIS(){
-    var nis = document.getElementById('nis').disabled = true;
-    var nik = document.getElementById('nik').disabled = false;
-    nik = document.getElementById('nik').required = true;
-  }
-  function disNIK(){
-    var nik = document.getElementById('nik').disabled = true;
-    var nis = document.getElementById('nis').disabled = false;
-    nis = document.getElementById('nis').required = true;
+  function disNISNIK(){
+      var nis = document.getElementById('nis');
+      var nik = document.getElementById('nik');
+      var pus = document.getElementById('pus');
+      var usr = document.getElementById('usr');
+      if(pus.checked == true){
+          nis.disabled = true;
+          nik.disabled = false;
+          nik.required = true;
+      } else if (usr.checked == true) {
+          nis.disabled = false;
+          nik.disabled = true;
+          nis.required = true;
+      } else {
+          nis.disabled = true;
+          nik.disabled = true;
+      }
   }
 </script>

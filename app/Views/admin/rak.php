@@ -94,34 +94,34 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?=base_url('adm/tambahrak'); ?>" method="post" enctype="multipart/form-data">
+        <form action="<?=base_url('adm/tambahrak'); ?>" method="post" enctype="multipart/form-data" id="form">
           <?= csrf_field(); ?>
           <div class="form-group">
               <label for="exampleInputPassword1">Nama</label>
-              <input type="text" class="form-control" id="exampleInputPassword1" name="nama">
+              <input type="text" class="form-control error" id="nama" name="nama" required>
           </div>
           <div class="form-group">
               <label for="exampleInputPassword1">No. Lemari</label>
-              <input type="number" class="form-control" id="exampleInputPassword1" name="nolem">
+              <input type="number" class="form-control" id="nolem" name="nolem" required>
           </div>
           <div class="form-group">
               <label for="exampleInputPassword1">No. Rak</label>
-              <input type="number" class="form-control" id="exampleInputPassword1" name="norak">
+              <input type="number" class="form-control" id="norak" name="norak" required>
           </div>
           <div class="form-group">
               <label for="exampleInputPassword1">Jenis</label>
-              <input type="text" class="form-control" id="exampleInputPassword1" name="jenis">
+              <input type="text" class="form-control" id="jenis" name="jenis" required>
           </div>
           <div class="form-group">
               <label for="exampleInputPassword1">Lokasi</label>
-              <input type="file" class="form-control" id="gmb" name="gmb">
+              <input type="file" class="form-control" id="gmb" name="gmb" required>
           </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
             <i class="fas fa-times"></i> Batal
         </button>
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" id="submit" class="btn btn-primary">
             <i class="fas fa-check-circle"></i> Simpan
         </button>
       </div>
@@ -129,3 +129,43 @@
     </div>
   </div>
 </div>
+
+<script>
+      const submit = document.getElementById('submit');
+      const nama = document.getElementById('nama');
+      const nolek = document.getElementById('nolek');
+      const norak = document.getElementById('norak');
+      const jenis = document.getElementById('jenis');
+      const gmb = document.getElementById('gmb');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        cekData();
+      });
+
+      function cekData() {
+        const namaValue = nama.value.trim();
+        const nolekValue = nolek.value.trim();
+        const norakValue = norak.value.trim();
+        const jenisValue = jenis.value.trim();
+        const gmbValue = gmb.value.trim();
+
+        if(namaValue === '') {
+          // Tampilkan kolom salah dan pesan kesalahan
+          setErrorFor(username, 'Nama rak tidak boleh kosong!');
+        } else {
+          // Tampilkan kolom benar
+          setSuccessFor(username);
+        }
+      }
+
+      function setErrorFor(input, pesan) {
+        const formControl = input.parentElement;
+        const small = formControl.querySelector('small');
+
+        // Tampilkan pesan error didalam small
+        small.innerText = pesan;
+
+        // Tambah kelas error
+        formControl.className = 'form-control error';
+      }
+    </script>

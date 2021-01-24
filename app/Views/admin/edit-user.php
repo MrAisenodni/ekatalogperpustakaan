@@ -64,8 +64,8 @@
                         <input type="password" name="pass" class="form-control" id="exampleInputPassword1" required>
                     </div>
                     <div class="modal-footer">
-                        <a href="<?= base_url('adm_user'); ?>">
-                            <button type="submit" class="btn btn-danger">
+                        <a href="/adm_user">
+                            <button type="button" class="btn btn-danger">
                                 <i class="fas fa-times"></i> Batal
                             </button>
                         </a>
@@ -91,15 +91,13 @@
             nis.disabled = true;
             nik.disabled = false;
             nik.required = true;
-        } else {
+        } else if (usr.checked == true) {
             nis.disabled = false;
             nik.disabled = true;
             nis.required = true;
+        } else {
+            nis.disabled = true;
+            nik.disabled = true;
         }
-    }
-    function disNIK(){
-        var nik = document.getElementById('nik').disabled = true;
-        var nis = document.getElementById('nis').disabled = false;
-        nis = document.getElementById('nis').required = true;
     }
 </script>

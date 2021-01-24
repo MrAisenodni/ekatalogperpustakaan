@@ -90,7 +90,7 @@ class Adm extends Controller{
     	*/
 
 		$simpan = $this->rak->TambahRak($data);
-		$gambar->move(ROOTPATH.'public/gmb');
+		$gambar->move('gmb');
 
 		// Jika simpan berhasil, maka ...
         if(!$simpan){
@@ -104,11 +104,11 @@ class Adm extends Controller{
 
 	public function detailubahrak($kd_rak)
 	{
-		$all = $this->user->getRakKode($kd_rak);
+		$all = $this->rak->getRakKode($kd_rak);
 		$data = [
 			'title' => 'Ubah Rak/Denah',
 			'drak' 	=> $all,
-			'rak'	=> $this->session->get(),
+			'user'	=> $this->session->get(),
 		];
 		return view('admin/edit-rak', $data);
 	}
@@ -155,6 +155,8 @@ class Adm extends Controller{
     }
 
     public function hapusrak($kd_rak){
+    	$drak = $this->rak->getRakKode($kd_rak);
+    	unlink('gmb/'.$drak['gambar']);
 		// Memanggil function delete_product() dengan parameter $id di dalam ProductModel dan menampungnya di variabel hapus
 		$this->rak->HapusRak($kd_rak);
 		session()->setFlashdata('pesan','Data Rak Berhasil Dihapus');

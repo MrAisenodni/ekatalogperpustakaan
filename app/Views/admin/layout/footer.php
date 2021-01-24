@@ -39,6 +39,7 @@
     <!-- Main JS-->
     <script src="/admin/js/main.js"></script>
 
+    <!-- My Script -->
 </body>
 
 </html>
