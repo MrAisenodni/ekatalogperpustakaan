@@ -26,19 +26,5 @@ class HistoryModel extends Model
                       ->insert($input);
         return $query;
     }
-    // function HapusUser($nis){
-    //     $query = $this->table('user')
-    //                   ->where('nis',$nis)
-    //                   ->delete();
-    //     return $query;
-    // }
-    // function UbahUser($data,$nis){
-    //     $query = $this->protect(false)
-    //                   ->table('user')
-    //                   ->set($data)
-    //                   ->where('nis',$nis)
-    //                   ->update();
-    // }
-
 }
 ?>

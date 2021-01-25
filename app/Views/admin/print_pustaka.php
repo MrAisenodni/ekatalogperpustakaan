@@ -29,26 +29,18 @@
 		<table cellpadding="6" >
 			<tr>
 				<th><strong>No</strong></th>
-				<th><strong>Judul Buku</strong></th>
-				<th><strong>Pengarang</strong></th>
-				<th><strong>Penerbit</strong></th>
-				<th><strong>Tahun</strong></th>
-				<th><strong>Lokasi</strong></th>
+				<th><strong>Aksi</strong></th>
+				<th><strong>Akses</strong></th>
+				<th><strong>Tanggal Akses</strong></th>
 			</tr>
 			<?php
 			$no = 1;
 			foreach($pustaka as $key => $data){?>
 			<tr>
 				<td><?= $no; ?></td>
-				<td>
-						<?= $data['judul']; ?>
-				</td>
-				<td><?= $data['pengarang']; ?></td>
-				<td>
-						<?= $data['penerbit']; ?>
-				</td>
-				<td><?= $data['tahun']; ?></td>
-				<td><?= $data['nama']; ?></td>
+				<td><?= $data['aksi'] ?></td>
+				<td><?php if($data['akses']==='usr'){echo 'Peserta Didik';}else{echo 'Pustakawan';} ?></td>
+				<td><?= $data['tgl_akses'] ?></td>
 			</tr>
 			<?php $no++;} ?>
 		</table>

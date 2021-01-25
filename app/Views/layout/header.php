@@ -31,7 +31,7 @@
       <a class="navbar-brand" href="<?= base_url(); ?>">Sistem Informasi Perpustakaan</a>
       <!-- <div class="">
         <h5 class="name">
-          <?= $user['nama']; ?>
+          
         </h5>
       </div> -->
       <a class="btn btn-primary" href="<?= base_url('logout')?>">Logout</a>

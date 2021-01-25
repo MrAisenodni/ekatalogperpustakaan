@@ -45,9 +45,10 @@ class Home extends BaseController
 	{
 		$kd = $this->request->getPost('kd');
 		$hsl = $this->pustaka->getSearch($kd);
+		$pustaka = $this->pustaka->getPustakaKode($kd);
 		$input = [
 			'kd_user'	=> $this->session->get('kd_user'),
-			'aksi' 		=> $this->session->get('nama').' Sedang Mencari Detail Lokasi',
+			'aksi' 		=> $this->session->get('nama').' Sedang Mencari Detail Lokasi '.$pustaka['judul'],
 			'akses' 	=> $this->session->get('akses'),
 			'tgl_akses' => date('Y-m-d H:i:s'),
 		];

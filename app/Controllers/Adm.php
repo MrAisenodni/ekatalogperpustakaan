@@ -445,10 +445,10 @@ class Adm extends Controller{
 	// START CRUD Laporan
 	public function history()
 	{
-		$db      = \Config\Database::connect();
+		$db = \Config\Database::connect();
 		$all = $db->table('history')->get()->getResultArray();
 		$data = [
-			'title' 	=> 'History',
+			'title' 	=> 'Laporan',
 			'history' 	=> $all,
 			'user' 		=> $this->session->get(),
 		];
@@ -458,7 +458,7 @@ class Adm extends Controller{
 	public function cetakkatalog()
 	{
 		date_default_timezone_set('Asia/Jakarta');
-		$term = 'Mencari';
+		$term = 'Sedang';
 		$db = \Config\Database::connect();
 		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
 		$data = view('admin/print_pustaka',[

@@ -39,7 +39,7 @@
 			<tr>
 				<td><?= $no; ?></td>
 				<td><?= $data['aksi'] ?></td>
-				<td><?php if($data['akses']==='usr'){echo 'User';}else{echo 'Pustakawan';} ?></td>
+				<td><?php if($data['akses']==='usr'){echo 'Peserta Didik';}else{echo 'Pustakawan';} ?></td>
 				<td><?= $data['tgl_akses'] ?></td>
 			</tr>
 			<?php $no++;} ?>
