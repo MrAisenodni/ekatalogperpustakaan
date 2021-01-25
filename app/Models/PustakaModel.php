@@ -27,6 +27,7 @@ class PustakaModel extends Model
     }
     public function getPustakaKode($kd_buku) {
         return $this->table('buku')
+                    ->join('rak','pustaka.kd_rak = rak.kd_rak')
                     ->where('kd_buku',$kd_buku)
                     ->get()
                     ->getRowArray();
@@ -68,11 +69,11 @@ class PustakaModel extends Model
                       ->delete();
         return $query;
     }
-    function UbahBuku($data,$kd){
+    function UbahBuku($data,$kd_buku){
         $query = $this->protect(false)
                       ->table('pustaka')
                       ->set($data)
-                      ->where('kd_buku',$kd)
+                      ->where('kd_buku',$kd_buku)
                       ->update();
         return $query;
     }

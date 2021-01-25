@@ -97,34 +97,34 @@
         <form action="<?=base_url('adm/tambahbuku'); ?>" method="post">
           <div class="form-group">
             <label for="exampleInputPassword1">Judul</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" name="judul">
+            <input type="text" class="form-control" id="exampleInputPassword1" name="judul" required>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Pengarang</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" name="pengarang">
+            <input type="text" class="form-control" id="exampleInputPassword1" name="pengarang" required>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Tempat Terbit</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" name="tmpt">
+            <input type="text" class="form-control" id="exampleInputPassword1" name="tmpt" required>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Penerbit</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" name="penerbit">
+            <input type="text" class="form-control" id="exampleInputPassword1" name="penerbit" required>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Tahun</label>
-            <input type="year" class="form-control" id="exampleInputPassword1" name="tahun">
+            <input type="year" class="form-control" id="exampleInputPassword1" name="tahun" required>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Jumlah Halaman</label>
-            <input type="number" class="form-control" id="exampleInputPassword1" name="halaman">
+            <input type="number" class="form-control" id="exampleInputPassword1" name="halaman" required>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Lokasi Rak</label>
-            <select name="rak" class="form-control">
+            <select name="rak" class="form-control" required>
               <option>--Pilih Rak--</option>
               <?php foreach($rak as $key => $data1){?>
-                <option value="<?= $data1['kd_rak']; ?>"><?php echo $data1['nama']." -- No Lemari (".$data1['no_lemari'].") -- No Rak (".$data1['no_rak'].")"; ?></option>
+                <option value="<?= $data1['kd_rak']; ?>" required><?php echo $data1['nama']." -- No Lemari (".$data1['no_lemari'].") -- No Rak (".$data1['no_rak'].")"; ?></option>
               <?php } ?>
             </select>
           </div>

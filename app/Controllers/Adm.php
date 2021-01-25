@@ -123,10 +123,6 @@ class Adm extends Controller{
         $jenis = $this->request->getPost('jenis');
         $gambar = $this->request->getFile('gmb');
 
-        // Cek gambar lama atau baru
-        if($gambar->getError() == 4){
-        	$gmb = $this->request->getVar('gambarLama');
-        }
 
     	// Membuat array collection yang disiapkan untuk insert ke table
         $data = [
@@ -147,7 +143,7 @@ class Adm extends Controller{
 		$gambar->move('gmb');
 
 		// Jika simpan berhasil, maka ...
-        if(!$simpan){
+        if($simpan){
 	      	session()->setFlashdata('pesan', 'Data Rak Berhasil Diubah.');
 		    return redirect()->to(base_url('adm_rak'));
 	    }else{
@@ -230,7 +226,6 @@ class Adm extends Controller{
 		*/
 
 		$simpan = $this->pustaka->TambahBuku($data);
-
 		// Jika simpan berhasil, maka ...
         if(!$simpan){
 	      	session()->setFlashdata('pesan', 'Data Pustaka Berhasil Ditambahkan.');
@@ -243,55 +238,53 @@ class Adm extends Controller{
 
 	public function detailubahbuku($kd_buku)
 	{
-		$all = $this->user->getPustakaKode($kd_buku);
+		$all = $this->pustaka->getPustakaKode($kd_buku);
 		$drak = $this->rak->getRak();
 		$data = [
 			'title' 	=> 'Ubah Pustaka',
 			'pustaka' 	=> $all,
 			'rak' 		=> $drak,
-			'rak'		=> $this->session->get(),
+			'user'		=> $this->session->get(),
 		];
 		return view('admin/edit-katalog', $data);
 	}
 
-	public function ubahbuku($stat,$kd){
-		if($stat=='submit'){
-			// Mengambil value dari form dengan method POST
-			$jdl = $this->request->getPost('judul');
-			$peng = $this->request->getPost('pengarang');
-			$edit = $this->request->getPost('editor');
-			$terbit = $this->request->getPost('penerbit');
-			$thn = $this->request->getPost('tahun');
-			$hal = $this->request->getPost('halaman');
-			$loc = $this->request->getPost('lokasi');
+	public function ubahbuku($kd_buku){
+		// Mengambil value dari form dengan method POST
+        $jdl = $this->request->getPost('judul');
+		$peng = $this->request->getPost('pengarang');
+		$tmpt = $this->request->getPost('tmpt');
+		$terbit = $this->request->getPost('penerbit');
+		$thn = $this->request->getPost('tahun');
+		$hal = $this->request->getPost('halaman');
+		$loc = $this->request->getPost('rak');
 
-			// Membuat array collection yang disiapkan untuk insert ke table
-			$data = [
-			'judul' => $jdl,
-			'pengarang' => $peng,
-			'editor' => $edit,
-			'penerbit' => $terbit,
-			'tahun' => $thn,
-			'halaman' => $hal,
-			'lokasi' => $loc
-			];
+		// Membuat array collection yang disiapkan untuk insert ke table
+		$data = [
+			'kd_buku' 		=> $kd_buku,
+			'judul' 		=> $jdl,
+			'pengarang' 	=> $peng,
+			'tmpt_terbit' 	=> $tmpt,
+			'penerbit' 		=> $terbit,
+			'tahun' 		=> $thn,
+			'halaman' 		=> $hal,
+			'kd_rak' 		=> $loc,
+		];
 
-			/*
-			Membuat variabel ubah yang isinya merupakan memanggil function
-			update_product dan membawa parameter data beserta id
-			*/
-			$ubah = $this->pustaka->UbahBuku($data, $kd);
+		/*
+		Membuat variabel simpan yang isinya merupakan memanggil function
+		insert_product dan membawa parameter data
+		*/
 
-			// Jika berhasil melakukan ubah
-			if(!$ubah){
-				return redirect()->to(base_url('adm_katalog'));
-			}else{
-				return redirect()->to(base_url('adm_katalog'));
-			}
-		}else{
-			$data['pustaka'] = $this->pustaka->getPustaka($kd);
-			return view('adm/ubah', $data);
-		}
+		$simpan = $this->pustaka->UbahBuku($data,$kd_buku);
+		// Jika simpan berhasil, maka ...
+        if($simpan){
+	      	session()->setFlashdata('pesan', 'Data Pustaka Berhasil Diubah.');
+		    return redirect()->to(base_url('adm_katalog'));
+	    }else{
+	    	session()->setFlashdata('error', 'Data Pustaka Gagal Diubah.');
+			return redirect()->to(base_url('adm_katalog'));
+	    }
 	}
 
     public function hapusbuku($kd_buku){
@@ -467,7 +460,7 @@ class Adm extends Controller{
 		date_default_timezone_set('Asia/Jakarta');
 		$term = 'Mencari';
 		$db = \Config\Database::connect();
-		$all = $this->history->getHistory($term);
+		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
 		$data = view('admin/print_pustaka',[
 			'title' => 'Cetak Laporan Pustaka',
 			'pustaka' => $all,
