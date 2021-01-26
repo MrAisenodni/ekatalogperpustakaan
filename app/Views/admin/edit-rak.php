@@ -4,7 +4,7 @@
     <div class="col-md-10">
         <div class="card">
             <div class="card-body card-block">
-                <h3 class="title-5 m-b-35">UBAH PENGGUNA</h3>
+                <h3 class="title-5 m-b-35">UBAH RAK</h3>
                 <div class="col-md-13">
                   <?php if(session()->getFlashdata('pesan')) : ?>
                   <div class="alert alert-success alert-dismissable fade show" role="alert">

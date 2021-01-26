@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Tahun</label>
-                        <input type="year" class="form-control" id="exampleInputPassword1" name="tahun" value="<?= $pustaka['tahun']; ?>">
+                        <input type="year" class="form-control" id="exampleInputPassword1" name="tahun" value="<?= $pustaka['tahun']; ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Jumlah Halaman</label>

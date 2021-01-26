@@ -63,7 +63,7 @@
                                     <i class="zmdi zmdi-delete"></i>
                                   </button>
                                 </form>
-                                <a href="detail-katalog.php" class="item" data-toggle="tooltip" data-placement="top" title="More">
+                                <a href="adm/detailrak/<?= $data['kd_rak']; ?>" class="item" data-toggle="tooltip" data-placement="top" title="More">
                                     <i class="zmdi zmdi-more"></i>
                                 </a>
                             </div>

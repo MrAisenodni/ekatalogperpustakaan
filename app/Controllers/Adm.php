@@ -44,6 +44,19 @@ class Adm extends Controller{
 		return view('admin/rak', $data);
 	}
 
+	public function detailrak($kd_rak)
+	{
+		$all = $this->rak->getRakKode($kd_rak);
+		$gambar = $this->request->getFile('gmb');
+		$data = [
+			'title' => 'Ubah Rak/Denah',
+			'drak' 	=> $all,
+			'gmb' 	=> $gambar,
+			'user'	=> $this->session->get(),
+		];
+		return view('admin/detail-rak', $data);
+	}
+
 	public function tambahrak(){
 		$data = $this->rak->KodeRak();
 		$kd = "";
@@ -176,6 +189,19 @@ class Adm extends Controller{
 		return view('admin/katalog', $data);
 	}
 
+	public function detailbuku($kd_buku)
+	{
+		$all = $this->pustaka->getPustakaKode($kd_buku);
+		$drak = $this->rak->getRak();
+		$data = [
+			'title' 	=> 'Ubah Pustaka',
+			'pustaka' 	=> $all,
+			'rak' 		=> $drak,
+			'user'		=> $this->session->get(),
+		];
+		return view('admin/detail-katalog', $data);
+	}
+
 	public function tambahbuku(){
 		$data = $this->pustaka->KodeBuku();
 		$kd = "";
@@ -305,6 +331,17 @@ class Adm extends Controller{
 			'user'	=> $this->session->get(),
 		];
 		return view('admin/user', $data);
+	}
+
+	public function detailuser($kd_user)
+	{
+		$all = $this->user->getUserKode($kd_user);
+		$data = [
+			'title' => 'Ubah Pengguna',
+			'usr' 	=> $all,
+			'user'	=> $this->session->get(),
+		];
+		return view('admin/detail-user', $data);
 	}
 
 	public function tambahuser()

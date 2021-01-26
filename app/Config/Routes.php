@@ -43,16 +43,19 @@ $routes->get('logout', 'Auth::logout');
 $routes->get('adm', 'Adm::index', ['filter' => 'auth']);
 $routes->get('adm_katalog', 'Adm::katalog', ['filter' => 'auth']);
 $routes->get('/adm/ubahbuku/(:$alphanum)', 'Adm::detailubahbuku/$1');
+$routes->get('/adm/detailbuku/(:$alphanum)', 'Adm::detailbuku/$1');
 $routes->delete('/adm/hapusbuku/(:alphanum)', 'Adm::hapusbuku/$1');
 $routes->get('adm_lap_katalog', 'Adm::cetakkatalog', ['filter' => 'auth']);
 
 
 $routes->get('adm_rak', 'Adm::rak', ['filter' => 'auth']);
 $routes->get('/adm/ubahrak/(:$alphanum)', 'Adm::detailubahrak/$1');
+$routes->get('/adm/detailrak/(:$alphanum)', 'Adm::detailrak/$1');
 $routes->delete('/adm/hapusrak/(:alphanum)', 'Adm::hapusrak/$1');
 
 $routes->get('adm_user', 'Adm::user', ['filter' => 'auth']);
 $routes->get('/adm/ubahuser/(:$alphanum)', 'Adm::detailubahuser/$1');
+$routes->get('/adm/detailuser/(:$alphanum)', 'Adm::detailuser/$1');
 $routes->delete('/adm/hapususer/(:alphanum)', 'Adm::hapususer/$1');
 
 $routes->get('adm_history', 'Adm::history', ['filter' => 'auth']);

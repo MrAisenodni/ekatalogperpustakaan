@@ -56,7 +56,7 @@
             <div class="card bg-light mb-3">
                 <div class="card-header" style="color: black;">Denah Perpustakaan</div>
                 <div class="card-body">
-                    <img src="user/img/denah.jpg" alt="denah" style="width: 500px; height: 750px;"> -->
+                    <img src="gmb/denah.png" alt="denah" style="width: 500px; height: 750px;"> -->
                 </div>
             </div>
         </div>
