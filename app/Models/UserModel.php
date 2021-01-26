@@ -10,7 +10,7 @@ class UserModel extends Model
     {
         if($nis === false){
             return $this->table('user')
-                        ->orderBy('nama','ASC')
+                        ->orderBy('nis','ASC','nik','ASC')
                         ->get()
                         ->getResultArray();
         } else {

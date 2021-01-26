@@ -124,7 +124,7 @@
             <select name="rak" class="form-control" required>
               <option>--Pilih Rak--</option>
               <?php foreach($rak as $key => $data1){?>
-                <option value="<?= $data1['kd_rak']; ?>" required><?php echo $data1['nama']." -- No Lemari (".$data1['no_lemari'].") -- No Rak (".$data1['no_rak'].")"; ?></option>
+                <option value="<?= $data1['kd_rak']; ?>" required><?php echo $data1['jenis'].", ".$data1['nama']." -- No Lemari (".$data1['no_lemari'].") -- No Rak (".$data1['no_rak'].")"; ?></option>
               <?php } ?>
             </select>
           </div>
