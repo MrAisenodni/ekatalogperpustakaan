@@ -7,10 +7,10 @@
         <div class="table-data__tool">
             <div class="table-data__tool-right">
             <a class="btn btn-primary" href="<?= base_url('adm_lap_history')?>" target="_blank">
-                    <i class="fas fa-plus-circle"></i> Cetak Laporan Pengunjung</a>
+                    <i class="fas fa-file"></i> Cetak Laporan Pengunjung</a>
             </div>
             <a class="btn btn-primary" href="<?= base_url('adm_lap_katalog')?>" target="_blank">
-                    <i class="fas fa-plus-circle"></i> Cetak Laporan Pustaka</a>
+                    <i class="fas fa-file"></i> Cetak Laporan Pencarian</a>
             </div>
         </div>
         <div class="table-responsive table-responsive-data2">
