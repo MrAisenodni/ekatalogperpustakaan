@@ -505,9 +505,9 @@ class Adm extends Controller{
 		$db = \Config\Database::connect();
 		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
 		$data = view('admin/print_pencarian',[
-			'title' => 'Cetak Laporan Pencarian Pustaka',
-			'pustaka' => $all,
-			'user' => $this->session->get(),
+			'title' 	=> 'Cetak Laporan Pencarian Pustaka',
+			'pustaka' 	=> $all,
+			'user' 		=> $this->session->get(),
 		]);
 		$pdf = new \TCPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
 
@@ -537,9 +537,9 @@ class Adm extends Controller{
 		$db = \Config\Database::connect();
 		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
 		$data = view('admin/print_history',[
-			'title' => 'Cetak Laporan Pengunjung',
-			'history' => $all,
-			'user' => $this->session->get(),
+			'title' 	=> 'Cetak Laporan Pengunjung',
+			'history' 	=> $all,
+			'user' 		=> $this->session->get(),
 		]);
 		$pdf = new \TCPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
 
@@ -563,14 +563,13 @@ class Adm extends Controller{
 
 	public function cetakpustaka()
 	{
-		$term = 'Login';
 		date_default_timezone_set('Asia/Jakarta');
 		$db = \Config\Database::connect();
-		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
+		$all = $db->table('pustaka')->join('rak', 'pustaka.kd_rak = rak.kd_rak')->get()->getResultArray();
 		$data = view('admin/print_pustaka',[
-			'title' => 'Cetak Laporan Pustaka',
-			'history' => $all,
-			'user' => $this->session->get(),
+			'title' 	=> 'Cetak Laporan Pustaka',
+			'pustaka' 	=> $all,
+			'user' 		=> $this->session->get(),
 		]);
 		$pdf = new \TCPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
 

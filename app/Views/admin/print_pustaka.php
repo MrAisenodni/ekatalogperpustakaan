@@ -18,7 +18,7 @@
 		</style>
 	</head>
 	<body>
-		<div style="font-size:20px; font-style: oblique; text-align: center;"><b>Laporan Pencarian Pustaka</b></div>
+		<div style="font-size:20px; font-style: oblique; text-align: center;"><b>Laporan Pustaka</b></div>
 		<p style="font-size: 14px; text-align: center;"><b>Perpustakaan SMA Negeri 6 Bekasi</b><br>
 		PERUMAHAN PONDOK MITRA LESTARI, Jl. Asri Lestari Raya No.25, RT.008/RW.005, Jaka Setia, Kec. Jatiasih, Kota Bks, Jawa Barat 17147
 		</p>
@@ -26,19 +26,25 @@
 		<p></p>
 		<table cellpadding="6" >
 			<tr>
-				<th width="50px"><strong>No</strong></th>
-				<th width="345px"><strong>Aksi</strong></th>
-				<th><strong>Akses</strong></th>
-				<th><strong>Tanggal Akses</strong></th>
+				<th width="35px"><strong>No</strong></th>
+				<th width="200px"><strong>Judul</strong></th>
+				<th><strong>Pengarang</strong></th>
+				<th><strong>Nama Rak</strong></th>
+				<th><strong>Jenis Rak</strong></th>
+				<th><strong>Tanggal Tambah</strong></th>
+				<th><strong>Tanggal Ubah</strong></th>
 			</tr>
 			<?php
 			$no = 1;
 			foreach($pustaka as $key => $data){?>
 			<tr>
-				<td width="50px"><?= $no; ?></td>
-				<td width="345px"><?= $data['aksi'] ?></td>
-				<td><?php if($data['akses']==='usr'){echo 'Peserta Didik';}else{echo 'Pustakawan';} ?></td>
-				<td><?= $data['tgl_akses'] ?></td>
+				<td><?= $no; ?></td>
+				<td><?= $data['judul'] ?></td>
+				<td><?= $data['pengarang'] ?></td>
+				<td><?= $data['nama'] ?></td>
+				<td><?= $data['jenis'] ?></td>
+				<td><?= $data['tgl_tambah'] ?></td>
+				<td><?= $data['tgl_ubah'] ?></td>
 			</tr>
 			<?php $no++;} ?>
 		</table>
