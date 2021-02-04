@@ -6,7 +6,7 @@
         <h3 class="title-5 m-b-35">KELOLA RAK</h3>
         <div class="table-data__tool">
             <div class="table-data__tool-right">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
                     <i class="fas fa-plus-circle"></i> Tambah Rak</button>
             </div>
         </div>

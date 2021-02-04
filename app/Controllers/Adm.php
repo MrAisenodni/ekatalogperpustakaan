@@ -561,7 +561,7 @@ class Adm extends Controller{
 		date_default_timezone_set('Asia/Jakarta');
 		$db = \Config\Database::connect();
 		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
-		$data = view('admin/',[
+		$data = view('admin/print_pustaka',[
 			'title' => 'Cetak Laporan Pustaka',
 			'history' => $all,
 			'user' => $this->session->get(),
@@ -570,8 +570,8 @@ class Adm extends Controller{
 
 		$pdf->SetCreator(PDF_CREATOR);
 		// $pdf->SetAuthor('Dea Venditama');
-		$pdf->SetTitle('Laporan Pengunjung');
-		$pdf->SetSubject('Laporan Pengunjung');
+		$pdf->SetTitle('Laporan Pustaka');
+		$pdf->SetSubject('Laporan Pustaka');
 
 		$pdf->setPrintHeader(false);
 		$pdf->setPrintFooter(false);
@@ -583,7 +583,7 @@ class Adm extends Controller{
 		//line ini penting
 		$this->response->setContentType('application/pdf');
 		//Close and output PDF document
-		$pdf->Output(date('d-m-Y').'_Laporan_Pengunjung.pdf', 'I');
+		$pdf->Output(date('d-m-Y').'_Laporan_Pustaka.pdf', 'I');
 	}
 	// END CRUD Laporan
 }

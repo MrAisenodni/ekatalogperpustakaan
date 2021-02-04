@@ -6,12 +6,12 @@
         <h3 class="title-5 m-b-35">KELOLA PUSTAKA</h3>
         <div class="table-data__tool">
             <div class="table-data__tool-right">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fas fa-plus-circle"></i> Tambah Pustaka</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+              <i class="fas fa-plus-circle"></i> Tambah Pustaka</button>
             </div>
             <div class="table-data__tool-right">
-            <a type="button" href="<?= base_url('adm_lap_pustaka')?>" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fas fa-file"></i> Cetak Laporan</a>
+            <a class="btn btn-primary" href="<?= base_url('adm_lap_pustaka')?>" target="_blank">
+                <i class="fas fa-file"></i> Cetak Laporan Pustaka</a>
             </div>
         </div>
         <div class="col-md-13">
