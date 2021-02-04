@@ -203,6 +203,7 @@ class Adm extends Controller{
 	}
 
 	public function tambahbuku(){
+		$tgl = ('Y-m-d');
 		$data = $this->pustaka->KodeBuku();
 		$kd = "";
 		$jadi = "";
@@ -233,6 +234,7 @@ class Adm extends Controller{
 		$thn = $this->request->getPost('tahun');
 		$hal = $this->request->getPost('halaman');
 		$loc = $this->request->getPost('rak');
+		$tgl = date('Y-m-d');
 
 		// Membuat array collection yang disiapkan untuk insert ke table
 		$data = [
@@ -244,6 +246,7 @@ class Adm extends Controller{
 			'tahun' 		=> $thn,
 			'halaman' 		=> $hal,
 			'kd_rak' 		=> $loc,
+			'tgl_tambah'	=> $tgl
 		];
 
 		/*
@@ -277,6 +280,7 @@ class Adm extends Controller{
 
 	public function ubahbuku($kd_buku){
 		// Mengambil value dari form dengan method POST
+		date_default_timezone_set('Asia/Jakarta');
         $jdl = $this->request->getPost('judul');
 		$peng = $this->request->getPost('pengarang');
 		$tmpt = $this->request->getPost('tmpt');
@@ -284,6 +288,7 @@ class Adm extends Controller{
 		$thn = $this->request->getPost('tahun');
 		$hal = $this->request->getPost('halaman');
 		$loc = $this->request->getPost('rak');
+		$tgl = date('Y-m-d');
 
 		// Membuat array collection yang disiapkan untuk insert ke table
 		$data = [
@@ -295,6 +300,7 @@ class Adm extends Controller{
 			'tahun' 		=> $thn,
 			'halaman' 		=> $hal,
 			'kd_rak' 		=> $loc,
+			'tgl_ubah'		=> $tgl
 		];
 
 		/*
