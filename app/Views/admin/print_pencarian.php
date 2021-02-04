@@ -18,7 +18,7 @@
 		</style>
 	</head>
 	<body>
-		<div style="font-size:20px; font-style: oblique; text-align: center;"><b>Laporan Kunjungan Perpustakaan</b></div>
+		<div style="font-size:20px; font-style: oblique; text-align: center;"><b>Laporan Pencarian Pustaka</b></div>
 		<p style="font-size: 14px; text-align: center;"><b>Perpustakaan SMA Negeri 6 Bekasi</b><br>
 		PERUMAHAN PONDOK MITRA LESTARI, Jl. Asri Lestari Raya No.25, RT.008/RW.005, Jaka Setia, Kec. Jatiasih, Kota Bks, Jawa Barat 17147
 		</p>

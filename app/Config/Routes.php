@@ -59,7 +59,7 @@ $routes->delete('/adm/hapususer/(:alphanum)', 'Adm::hapususer/$1');
 
 $routes->get('adm_history', 'Adm::history', ['filter' => 'auth']);
 $routes->get('adm_lap_history', 'Adm::cetakhistory', ['filter' => 'auth']);
-$routes->get('adm_lap_katalog', 'Adm::cetakkatalog', ['filter' => 'auth']);
+$routes->get('adm_lap_pencarian', 'Adm::cetakpencarian', ['filter' => 'auth']);
 // $routes->get('adm', 'Adm::index');
 // $routes->get('adm_katalog', 'Adm::katalog');
 // $routes->get('adm_rak', 'Adm::rak');

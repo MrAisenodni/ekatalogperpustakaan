@@ -492,7 +492,7 @@ class Adm extends Controller{
 		return view('admin/history', $data);
 	}
 
-	public function cetakkatalog()
+	public function cetakpencarian()
 	{
 		date_default_timezone_set('Asia/Jakarta');
 		$term = 'Sedang';

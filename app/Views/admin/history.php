@@ -9,7 +9,7 @@
             <a class="btn btn-primary" href="<?= base_url('adm_lap_history')?>" target="_blank">
                     <i class="fas fa-file"></i> Cetak Laporan Pengunjung</a>
             </div>
-            <a class="btn btn-primary" href="<?= base_url('adm_lap_katalog')?>" target="_blank">
+            <a class="btn btn-primary" href="<?= base_url('adm_lap_pencarian')?>" target="_blank">
                     <i class="fas fa-file"></i> Cetak Laporan Pencarian</a>
             </div>
         </div>
