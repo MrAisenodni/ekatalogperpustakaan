@@ -498,8 +498,8 @@ class Adm extends Controller{
 		$term = 'Sedang';
 		$db = \Config\Database::connect();
 		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
-		$data = view('admin/print_pustaka',[
-			'title' => 'Cetak Laporan Pustaka',
+		$data = view('admin/print_pencarian',[
+			'title' => 'Cetak Laporan Pencarian Pustaka',
 			'pustaka' => $all,
 			'user' => $this->session->get(),
 		]);
@@ -507,8 +507,8 @@ class Adm extends Controller{
 
 		$pdf->SetCreator(PDF_CREATOR);
 		// $pdf->SetAuthor('Dea Venditama');
-		$pdf->SetTitle('Laporan Pustaka');
-		$pdf->SetSubject('Laporan Pustaka');
+		$pdf->SetTitle('Laporan Pencarian Pustaka');
+		$pdf->SetSubject('Laporan Pencarian Pustaka');
 
 		$pdf->setPrintHeader(false);
 		$pdf->setPrintFooter(false);
@@ -520,7 +520,7 @@ class Adm extends Controller{
 		//line ini penting
 		$this->response->setContentType('application/pdf');
 		//Close and output PDF document
-		$pdf->Output(date('d-m-Y').'_Laporan_Pustaka.pdf', 'I');
+		$pdf->Output(date('d-m-Y').'_Laporan_Pencarian_Pustaka.pdf', 'I');
 
 	}
 
@@ -532,6 +532,37 @@ class Adm extends Controller{
 		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
 		$data = view('admin/print_history',[
 			'title' => 'Cetak Laporan Pengunjung',
+			'history' => $all,
+			'user' => $this->session->get(),
+		]);
+		$pdf = new \TCPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
+
+		$pdf->SetCreator(PDF_CREATOR);
+		// $pdf->SetAuthor('Dea Venditama');
+		$pdf->SetTitle('Laporan Pengunjung');
+		$pdf->SetSubject('Laporan Pengunjung');
+
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
+
+		$pdf->addPage();
+
+		// output the HTML content
+		$pdf->writeHTML($data, true, false, true, false, '');
+		//line ini penting
+		$this->response->setContentType('application/pdf');
+		//Close and output PDF document
+		$pdf->Output(date('d-m-Y').'_Laporan_Pengunjung.pdf', 'I');
+	}
+
+	public function cetakpustaka()
+	{
+		$term = 'Login';
+		date_default_timezone_set('Asia/Jakarta');
+		$db = \Config\Database::connect();
+		$all = $db->table('history')->like('aksi',$term)->get()->getResultArray();
+		$data = view('admin/',[
+			'title' => 'Cetak Laporan Pustaka',
 			'history' => $all,
 			'user' => $this->session->get(),
 		]);
