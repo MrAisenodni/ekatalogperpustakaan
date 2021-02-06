@@ -32,6 +32,14 @@ class PustakaModel extends Model
                     ->get()
                     ->getRowArray();
     }
+    public function getPustakaHistory($kd_buku){
+        return $this->table('history_pustaka')
+                    ->join('buku','buku.kd_buku = history_pustaka.buku')
+                    ->join('rak','rak.kd_rak = history_pustaka.kd_rak')
+                    ->where('kd_buku',$kd_buku)
+                    ->get()
+                    ->getRowArray();
+    }
     public function getSearch($kd = false)
     {
       if($kd === false){
@@ -58,10 +66,11 @@ class PustakaModel extends Model
   }
 
     function TambahBuku($data){
-        $query = $this->protect(false)
-                      ->table('pustaka')
-                      ->insert($data);
-        return $query;
+          $query = $this->protect(false)
+                        ->table('pustaka')
+                        ->insert($data);
+          
+          return $query;
     }
     function HapusBuku($kd){
         $query = $this->table('pustaka')
@@ -77,6 +86,5 @@ class PustakaModel extends Model
                       ->update();
         return $query;
     }
-
 }
 ?>

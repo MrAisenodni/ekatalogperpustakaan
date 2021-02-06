@@ -27,24 +27,18 @@
 		<table cellpadding="6" >
 			<tr>
 				<th width="35px"><strong>No</strong></th>
-				<th width="200px"><strong>Judul</strong></th>
-				<th><strong>Pengarang</strong></th>
-				<th><strong>Nama Rak</strong></th>
-				<th><strong>Jenis Rak</strong></th>
-				<th><strong>Tanggal Tambah</strong></th>
-				<th><strong>Tanggal Ubah</strong></th>
+				<th><strong>Nama Pustakawan</strong></th>
+				<th width="350px"><strong>Aksi</strong></th>
+				<th width="200px"><strong>Tanggal</strong></th>
 			</tr>
 			<?php
 			$no = 1;
-			foreach($pustaka as $key => $data){?>
+			foreach($history_pustaka as $key => $data){?>
 			<tr>
 				<td><?= $no; ?></td>
-				<td><?= $data['judul'] ?></td>
-				<td><?= $data['pengarang'] ?></td>
-				<td><?= $data['nama'] ?></td>
-				<td><?= $data['jenis'] ?></td>
-				<td><?= $data['tgl_tambah'] ?></td>
-				<td><?= $data['tgl_ubah'] ?></td>
+				<td><?= $data['admin'] ?></td>
+				<td><?php if($data['tgl_masuk'] != null) { echo "Pustaka berjudul ".$data['judul']." diletakkan pada rak ".$data['nama']." nomor ".$data['no_lemari']; } else { echo "Pustaka berjudul ".$data['judul']." dipindahkan ke rak ".$data['nama']." nomor ".$data['no_lemari']; } ?></td>
+				<td><?php if($data['tgl_masuk'] != null) { echo $data['tgl_masuk']; } else { echo $data['tgl_pindah']; } ?></td>
 			</tr>
 			<?php $no++;} ?>
 		</table>

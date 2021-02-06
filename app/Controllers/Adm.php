@@ -253,7 +253,6 @@ class Adm extends Controller{
 		Membuat variabel simpan yang isinya merupakan memanggil function
 		insert_product dan membawa parameter data
 		*/
-
 		$simpan = $this->pustaka->TambahBuku($data);
 		// Jika simpan berhasil, maka ...
         if(!$simpan){
@@ -565,11 +564,11 @@ class Adm extends Controller{
 	{
 		date_default_timezone_set('Asia/Jakarta');
 		$db = \Config\Database::connect();
-		$all = $db->table('pustaka')->join('rak', 'pustaka.kd_rak = rak.kd_rak')->get()->getResultArray();
+		$all = $db->table('history_pustaka')->join('pustaka','history_pustaka.kd_buku = pustaka.kd_buku', 'left')->join('rak', 'history_pustaka.kd_rak = rak.kd_rak')->get()->getResultArray();
 		$data = view('admin/print_pustaka',[
-			'title' 	=> 'Cetak Laporan Pustaka',
-			'pustaka' 	=> $all,
-			'user' 		=> $this->session->get(),
+			'title' 			=> 'Cetak Laporan Pustaka',
+			'history_pustaka' 	=> $all,
+			'user' 				=> $this->session->get(),
 		]);
 		$pdf = new \TCPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
 
