@@ -7,24 +7,28 @@ class History extends Migration
 	public function up()
 	{
 		$this->forge->addField([
-	        'kd_user'	=> [
+	        'kd_buku'	=> [
 	            'type'          => 'VARCHAR',
-				'constraint'    => 12,
+				'constraint'    => 13,
 			],
-			'aksi'		=> [
+	        'kd_rak'	=> [
+	            'type'          => 'INT',
+				'constraint'    => 5,
+			],
+			'admin'		=> [
 				'type'          => 'VARCHAR',
-				'constraint'    => '255',
+				'constraint'    => '100',
 			],
-			'akses' 	=> [
-				'type'          => 'ENUM',
-				'constraint'    => ['usr','pus'],
+			'tgl_masuk' => [
+				'type'			=> 'DATE',
+				'null'			=> true,
 			],
-			'tgl_akses' => [
-				'type'			=> 'DATETIME',
+			'tgl_pindah' => [
+				'type'			=> 'DATE',
 				'null'			=> true,
 			],
 	    ]);
-	    $this->forge->createTable('history');
+	    $this->forge->createTable('history_pustaka');
 	}
 
 	//--------------------------------------------------------------------
