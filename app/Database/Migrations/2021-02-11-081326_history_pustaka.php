@@ -35,6 +35,6 @@ class History extends Migration
 
 	public function down()
 	{
-		$this->forge->dropTable('history');
+		$this->forge->dropTable('history_pustaka');
 	}
 }
