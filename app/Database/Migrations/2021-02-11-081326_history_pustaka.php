@@ -2,7 +2,7 @@
 
 use CodeIgniter\Database\Migration;
 
-class History extends Migration
+class HistoryPustaka extends Migration
 {
 	public function up()
 	{
